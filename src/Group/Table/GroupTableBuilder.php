@@ -50,4 +50,13 @@ class GroupTableBuilder extends TableBuilder
             'href' => 'admin/templates/{entry.slug}',
         ],
     ];
+
+    /**
+     * The table actions.
+     *
+     * @var array
+     */
+    protected $actions = [
+        'delete',
+    ];
 }
