@@ -7,4 +7,7 @@ return [
     'templates' => [
         'title' => 'Templates',
     ],
+    'routes'    => [
+        'title' => 'Routes',
+    ],
 ];

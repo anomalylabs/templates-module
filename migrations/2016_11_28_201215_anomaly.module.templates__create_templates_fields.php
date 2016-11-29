@@ -2,6 +2,7 @@
 
 use Anomaly\Streams\Platform\Database\Migration\Migration;
 use Anomaly\TemplatesModule\Group\GroupModel;
+use Anomaly\TemplatesModule\Template\TemplateModel;
 use Anomaly\TemplatesModule\Template\TemplateStorage;
 
 /**
@@ -20,6 +21,7 @@ class AnomalyModuleTemplatesCreateTemplatesFields extends Migration
      * @var array
      */
     protected $fields = [
+        'uri'         => 'anomaly.field_type.text',
         'name'        => 'anomaly.field_type.text',
         'description' => 'anomaly.field_type.textarea',
         'slug'        => [
@@ -43,6 +45,13 @@ class AnomalyModuleTemplatesCreateTemplatesFields extends Migration
             'type'   => 'anomaly.field_type.relationship',
             'config' => [
                 'related' => GroupModel::class,
+            ],
+        ],
+        'template'    => [
+            'type'   => 'anomaly.field_type.relationship',
+            'config' => [
+                'mode'    => 'lookup',
+                'related' => TemplateModel::class,
             ],
         ],
         'content'     => [

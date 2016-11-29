@@ -44,5 +44,10 @@ class TemplatesModule extends Module
                 ],
             ],
         ],
+        'routes'    => [
+            'buttons' => [
+                'add_route',
+            ],
+        ],
     ];
 }

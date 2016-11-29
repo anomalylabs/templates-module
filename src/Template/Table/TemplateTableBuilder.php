@@ -22,6 +22,22 @@ class TemplateTableBuilder extends TableBuilder
     protected $group = null;
 
     /**
+     * The table filters.
+     *
+     * @var array
+     */
+    protected $filters = [
+        'search' => [
+            'fields' => [
+                'name',
+                'slug',
+                'content',
+            ],
+        ],
+        'type',
+    ];
+
+    /**
      * The table columns.
      *
      * @var array

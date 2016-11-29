@@ -19,4 +19,10 @@ return [
     'type'        => [
         'name' => 'Type',
     ],
+    'uri'         => [
+        'name' => 'URI',
+    ],
+    'template'    => [
+        'name' => 'Template',
+    ],
 ];
