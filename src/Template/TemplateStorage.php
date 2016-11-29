@@ -48,6 +48,8 @@ class TemplateStorage extends EditorFieldTypeStorage
         /* @var TemplateInterface $entry */
         $entry = $this->fieldType->getEntry();
 
+        $this->fieldType->configSet('mode', $entry->getType());
+
         return $entry->getSlug() . '.' . $this->fieldType->extension();
     }
 }

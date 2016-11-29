@@ -20,6 +20,7 @@ class AnomalyModuleTemplatesCreateGroupsStream extends Migration
     protected $stream = [
         'slug'         => 'groups',
         'title_column' => 'name',
+        'sortable'     => true,
     ];
 
     /**

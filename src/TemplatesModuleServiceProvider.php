@@ -2,6 +2,7 @@
 
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 use Anomaly\Streams\Platform\Application\Application;
+use Anomaly\Streams\Platform\Asset\AssetPaths;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesGroupsEntryModel;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesTemplatesEntryModel;
 use Anomaly\TemplatesModule\Group\Contract\GroupRepositoryInterface;
@@ -62,10 +63,12 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
      * Register the addon.
      *
      * @param Factory     $views
+     * @param AssetPaths  $assets
      * @param Application $application
      */
-    public function register(Factory $views, Application $application)
+    public function register(Factory $views, AssetPaths $assets, Application $application)
     {
+        $assets->addPath('templates', $application->getStoragePath('templates'));
         $views->addNamespace('templates', $application->getStoragePath('templates'));
     }
 }

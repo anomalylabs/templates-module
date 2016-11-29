@@ -49,7 +49,7 @@ class TemplateFormBuilder extends FormBuilder
         if ($type = $this->getType()) {
             $entry->setAttribute('type', $type);
         }
-        
+
         if ($group = $this->getGroup()) {
             $entry->setAttribute('group', $group);
         }
