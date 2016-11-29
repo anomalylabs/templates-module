@@ -42,6 +42,7 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
         'admin/templates/routes'            => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@index',
         'admin/templates/routes/create'     => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@create',
         'admin/templates/routes/edit/{id}'  => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@edit',
+        'admin/templates/routes/view/{id}'  => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@view',
         'admin/templates/{group}'           => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@index',
         'admin/templates/{group}/create'    => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@create',
         'admin/templates/{group}/choose'    => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@choose',

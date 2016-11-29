@@ -1,8 +1,9 @@
 <?php namespace Anomaly\TemplatesModule\Http\Controller\Admin;
 
+use Anomaly\Streams\Platform\Http\Controller\AdminController;
+use Anomaly\TemplatesModule\Route\Contract\RouteRepositoryInterface;
 use Anomaly\TemplatesModule\Route\Form\RouteFormBuilder;
 use Anomaly\TemplatesModule\Route\Table\RouteTableBuilder;
-use Anomaly\Streams\Platform\Http\Controller\AdminController;
 
 /**
  * Class RoutesController
@@ -40,11 +41,26 @@ class RoutesController extends AdminController
      * Edit an existing entry.
      *
      * @param RouteFormBuilder $form
-     * @param        $id
+     * @param                  $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function edit(RouteFormBuilder $form, $id)
     {
         return $form->render($id);
+    }
+
+    /**
+     * Return the route view.
+     *
+     * @param RouteRepositoryInterface $routes
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function view(RouteRepositoryInterface $routes)
+    {
+        if (!$route = $routes->find($this->route->getParameter('id'))) {
+            abort(404);
+        }
+
+        return $this->redirect->to($route->uri);
     }
 }

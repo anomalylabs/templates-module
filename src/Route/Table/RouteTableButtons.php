@@ -22,6 +22,9 @@ class RouteTableButtons
         $builder->setButtons(
             [
                 'edit',
+                'view'     => [
+                    'target' => '_blank',
+                ],
                 'template' => [
                     'type' => 'primary',
                     'icon' => 'fa fa-object-ungroup',
