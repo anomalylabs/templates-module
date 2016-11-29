@@ -1,57 +1,124 @@
 <?php namespace Anomaly\TemplatesModule\Template\Form;
 
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
+use Anomaly\TemplatesModule\Group\Contract\GroupInterface;
 
+/**
+ * Class TemplateFormBuilder
+ *
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
+ */
 class TemplateFormBuilder extends FormBuilder
 {
 
     /**
-     * The form fields.
+     * The template type.
      *
-     * @var array|string
+     * @var null|string
      */
-    protected $fields = [];
+    protected $type = null;
 
     /**
-     * Fields to skip.
+     * The group instance.
      *
-     * @var array|string
+     * @var null|GroupInterface
      */
-    protected $skips = [];
+    protected $group = null;
 
     /**
-     * The form actions.
-     *
-     * @var array|string
-     */
-    protected $actions = [];
-
-    /**
-     * The form buttons.
-     *
-     * @var array|string
-     */
-    protected $buttons = [];
-
-    /**
-     * The form options.
+     * The skipped fields.
      *
      * @var array
      */
-    protected $options = [];
+    protected $skips = [
+        'type',
+        'group',
+    ];
 
     /**
-     * The form sections.
+     * Fire just before saving.
      *
-     * @var array
+     * @param TemplateFormBuilder $builder
      */
-    protected $sections = [];
+    public function onSaving()
+    {
+        $entry = $this->getFormEntry();;
+
+        if ($type = $this->getType()) {
+            $entry->setAttribute('type', $type);
+        }
+        
+        if ($group = $this->getGroup()) {
+            $entry->setAttribute('group', $group);
+        }
+    }
 
     /**
-     * The form assets.
+     * Return the editor type.
      *
-     * @var array
+     * @return null|string
+     * @throws \Exception
      */
-    protected $assets = [];
+    public function editor()
+    {
+        if ($type = $this->getType()) {
+            return $type;
+        }
 
+        $entry = $this->getFormEntry();
+
+        if ($entry && $type = $entry->getType()) {
+            return $type;
+        }
+
+        throw new \Exception('The type could not be determined.');
+    }
+
+    /**
+     * Get the type.
+     *
+     * @return null|string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set the type.
+     *
+     * @param $type
+     * @return $this
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get the group.
+     *
+     * @return GroupInterface|null
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * Set the group.
+     *
+     * @param GroupInterface $group
+     * @return $this
+     */
+    public function setGroup(GroupInterface $group)
+    {
+        $this->group = $group;
+
+        return $this;
+    }
 }

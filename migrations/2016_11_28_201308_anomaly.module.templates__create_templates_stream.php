@@ -28,13 +28,17 @@ class AnomalyModuleTemplatesCreateTemplatesStream extends Migration
      * @var array
      */
     protected $assignments = [
-        'name'  => [
-            'required' => true,
-            'unique'   => true,
-        ],
         'type'  => [
             'required' => true,
         ],
+        'name'  => [
+            'required' => true,
+        ],
+        'slug'  => [
+            'required' => true,
+            'unique'   => true,
+        ],
+        'description',
         'group' => [
             'required' => true,
         ],

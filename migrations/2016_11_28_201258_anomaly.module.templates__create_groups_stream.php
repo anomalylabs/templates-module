@@ -30,7 +30,11 @@ class AnomalyModuleTemplatesCreateGroupsStream extends Migration
     protected $assignments = [
         'name' => [
             'required' => true,
+        ],
+        'slug' => [
+            'required' => true,
             'unique'   => true,
         ],
+        'description',
     ];
 }

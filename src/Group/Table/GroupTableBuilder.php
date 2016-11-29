@@ -2,60 +2,52 @@
 
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
 
+/**
+ * Class GroupTableBuilder
+ *
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
+ */
 class GroupTableBuilder extends TableBuilder
 {
 
     /**
-     * The table views.
-     *
-     * @var array|string
-     */
-    protected $views = [];
-
-    /**
      * The table filters.
      *
-     * @var array|string
+     * @var array
      */
-    protected $filters = [];
+    protected $filters = [
+        'search' => [
+            'fields' => [
+                'name',
+                'slug',
+                'description',
+            ],
+        ],
+    ];
 
     /**
      * The table columns.
      *
-     * @var array|string
+     * @var array
      */
-    protected $columns = [];
+    protected $columns = [
+        'name',
+        'description',
+    ];
 
     /**
      * The table buttons.
      *
-     * @var array|string
+     * @var array
      */
     protected $buttons = [
-        'edit'
+        'edit',
+        'templates' => [
+            'type' => 'primary',
+            'icon' => 'fa fa-object-ungroup',
+            'href' => 'admin/templates/{entry.slug}',
+        ],
     ];
-
-    /**
-     * The table actions.
-     *
-     * @var array|string
-     */
-    protected $actions = [
-        'delete'
-    ];
-
-    /**
-     * The table options.
-     *
-     * @var array
-     */
-    protected $options = [];
-
-    /**
-     * The table assets.
-     *
-     * @var array
-     */
-    protected $assets = [];
-
 }

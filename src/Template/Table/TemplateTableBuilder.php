@@ -1,30 +1,48 @@
 <?php namespace Anomaly\TemplatesModule\Template\Table;
 
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
+use Anomaly\TemplatesModule\Group\Contract\GroupInterface;
+use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Class TemplateTableBuilder
+ *
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
+ */
 class TemplateTableBuilder extends TableBuilder
 {
 
     /**
-     * The table views.
+     * The group interface.
      *
-     * @var array|string
+     * @var null|GroupInterface
      */
-    protected $views = [];
-
-    /**
-     * The table filters.
-     *
-     * @var array|string
-     */
-    protected $filters = [];
+    protected $group = null;
 
     /**
      * The table columns.
      *
-     * @var array|string
+     * @var array
      */
-    protected $columns = [];
+    protected $columns = [
+        'name' => [
+            'sort_column' => 'name',
+            'wrapper'     => '
+                    <strong>{value.name}</strong>
+                    <br>
+                    <small class="text-muted">{value.path}</small>
+                    <br>
+                    {value.type}',
+            'value'       => [
+                'name' => 'entry.name',
+                'path' => 'entry.path',
+                'type' => 'entry.label(entry.type.key|upper)',
+            ],
+        ],
+        'description',
+    ];
 
     /**
      * The table buttons.
@@ -32,7 +50,7 @@ class TemplateTableBuilder extends TableBuilder
      * @var array|string
      */
     protected $buttons = [
-        'edit'
+        'edit',
     ];
 
     /**
@@ -41,21 +59,41 @@ class TemplateTableBuilder extends TableBuilder
      * @var array|string
      */
     protected $actions = [
-        'delete'
+        'delete',
     ];
 
     /**
-     * The table options.
+     * Fired just before querying.
      *
-     * @var array
+     * @param Builder $query
      */
-    protected $options = [];
+    public function onQuerying(Builder $query)
+    {
+        if ($group = $this->getGroup()) {
+            $query->where('group_id', $group->getId());
+        }
+    }
 
     /**
-     * The table assets.
+     * Get the group.
      *
-     * @var array
+     * @return GroupInterface|null
      */
-    protected $assets = [];
+    public function getGroup()
+    {
+        return $this->group;
+    }
 
+    /**
+     * Set the group.
+     *
+     * @param GroupInterface $group
+     * @return $this
+     */
+    public function setGroup(GroupInterface $group)
+    {
+        $this->group = $group;
+
+        return $this;
+    }
 }

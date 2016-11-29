@@ -17,7 +17,7 @@ class TemplatesModule extends Module
      *
      * @var string
      */
-    protected $icon = 'glyphicons glyphicons-more-items';
+    protected $icon = 'fa fa-object-ungroup';
 
     /**
      * The module sections.
@@ -25,14 +25,23 @@ class TemplatesModule extends Module
      * @var array
      */
     protected $sections = [
-        'templates' => [
-            'buttons' => [
-                'new_template',
-            ],
-        ],
         'groups'    => [
             'buttons' => [
                 'new_group',
+            ],
+        ],
+        'templates' => [
+            'data-toggle' => 'modal',
+            'data-target' => '#modal',
+            'data-href'   => 'admin/templates/{request.route.parameters.group}',
+            'href'        => 'admin/templates/choose',
+
+            'buttons' => [
+                'new_template' => [
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal',
+                    'href'        => 'admin/templates/{request.route.parameters.group}/choose',
+                ],
             ],
         ],
     ];
