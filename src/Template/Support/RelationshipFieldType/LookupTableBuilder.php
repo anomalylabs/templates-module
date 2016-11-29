@@ -24,6 +24,7 @@ class LookupTableBuilder extends \Anomaly\RelationshipFieldType\Table\LookupTabl
             ],
         ],
         'type',
+        'group',
     ];
 
     /**
