@@ -52,4 +52,14 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
     {
         return $this->group;
     }
+
+    /**
+     * Get the related group's ID.
+     *
+     * @return int
+     */
+    public function getGroupId()
+    {
+        return $this->group_id;
+    }
 }

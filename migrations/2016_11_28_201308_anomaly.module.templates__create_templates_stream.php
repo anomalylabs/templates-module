@@ -36,7 +36,6 @@ class AnomalyModuleTemplatesCreateTemplatesStream extends Migration
         ],
         'slug'  => [
             'required' => true,
-            'unique'   => true,
         ],
         'description',
         'group' => [

@@ -33,4 +33,11 @@ interface TemplateInterface extends EntryInterface
      * @return GroupInterface
      */
     public function getGroup();
+
+    /**
+     * Get the related group's ID.
+     *
+     * @return int
+     */
+    public function getGroupId();
 }
