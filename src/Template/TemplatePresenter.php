@@ -56,11 +56,11 @@ class TemplatePresenter extends EntryPresenter
             $context = 'info';
         }
 
-        if (!$context && in_array($this->object->getType(), ['html', 'twig'])) {
+        if (!$context && in_array($this->object->getType(), ['html', 'twig', 'markdown'])) {
             $context = 'primary';
         }
 
-        if (!$context && in_array($this->object->getType(), ['js'])) {
+        if (!$context && in_array($this->object->getType(), ['javascript'])) {
             $context = 'danger';
         }
 
