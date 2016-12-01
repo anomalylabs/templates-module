@@ -14,6 +14,34 @@ interface TemplateInterface extends EntryInterface
 {
 
     /**
+     * Return the template path.
+     *
+     * @return string
+     */
+    public function path();
+
+    /**
+     * Return the template location.
+     *
+     * @return string
+     */
+    public function location();
+
+    /**
+     * Return the file extension.
+     *
+     * @return string
+     */
+    public function extension();
+
+    /**
+     * Get the path.
+     *
+     * @return string
+     */
+    public function getPath();
+
+    /**
      * Get the slug.
      *
      * @return string

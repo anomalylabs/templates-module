@@ -48,17 +48,22 @@ class SyncTemplates
                 continue;
             }
 
-            if (!$group->getTemplates()->findBy('slug', $slug = $file->getBasename('.' . $file->getExtension()))) {
-                $templates->create(
+            $slug = $slug = $file->getBasename('.' . $file->getExtension());
+
+            if (!$template = $group->getTemplates()->findBy('slug', $slug)) {
+                $template = $templates->newInstance(
                     [
-                        'slug'    => $slug,
-                        'group'   => $group,
-                        'name'    => ucwords($str->humanize($slug)),
-                        'content' => file_get_contents($file->getPathname()),
-                        'type'    => $this->dispatch(new GetType($file->getExtension())),
+                        'slug'  => $slug,
+                        'group' => $group,
+                        'name'  => ucwords($str->humanize($slug)),
+                        'type'  => $this->dispatch(new GetType($file->getExtension())),
                     ]
                 );
             }
+
+            $template->setAttribute('content', file_get_contents($file->getPathname()));
+
+            $templates->save($template);
         }
     }
 }

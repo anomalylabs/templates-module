@@ -1,5 +1,7 @@
 <?php namespace Anomaly\TemplatesModule\Console;
 
+use Anomaly\TemplatesModule\Console\Command\CleanGroups;
+use Anomaly\TemplatesModule\Console\Command\CleanTemplates;
 use Anomaly\TemplatesModule\Console\Command\SyncGroups as SyncGroupsCommand;
 use Anomaly\TemplatesModule\Console\Command\SyncTemplates as SyncTemplatesCommand;
 use Illuminate\Console\Command;
@@ -32,6 +34,9 @@ class SyncTemplates extends Command
     {
         $this->dispatch(new SyncGroupsCommand());
         $this->dispatch(new SyncTemplatesCommand());
+
+        $this->dispatch(new CleanGroups());
+        $this->dispatch(new CleanTemplates());
     }
 
     /**

@@ -31,16 +31,6 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
     }
 
     /**
-     * Return the file extension.
-     *
-     * @return string
-     */
-    public function extension()
-    {
-        return pathinfo($this->getPath(), PATHINFO_EXTENSION);
-    }
-
-    /**
      * Return the template location.
      *
      * @return string
@@ -48,6 +38,16 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
     public function location()
     {
         return "templates::{$this->path()}";
+    }
+
+    /**
+     * Return the file extension.
+     *
+     * @return string
+     */
+    public function extension()
+    {
+        return pathinfo($this->getPath(), PATHINFO_EXTENSION);
     }
 
     /**
