@@ -33,4 +33,16 @@ class RouteTableBuilder extends TableBuilder
     protected $actions = [
         'delete',
     ];
+
+    /**
+     * The table columns.
+     *
+     * @var array
+     */
+    protected $columns = [
+        'uri',
+        'entry.template.location()' => [
+            'wrapper' => '<code>{value}</code>',
+        ],
+    ];
 }

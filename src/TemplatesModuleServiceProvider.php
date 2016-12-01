@@ -107,12 +107,15 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
 
             $router->any(
                 $route->getUri(),
-                function (Factory $views) use ($route) {
+                function (Factory $views, Application $application) use ($route) {
 
                     $template = $route->getTemplate();
-                    $group    = $template->getGroup();
 
-                    return $views->make('templates::' . $group->getSlug() . '/' . $template->getSlug());
+                    if (!in_array($template->extension(), ['twig', 'html', 'md'])) {
+                        return file_get_contents($application->getStoragePath('templates/' . $template->getPath()));
+                    }
+
+                    return $views->make($template->location());
                 }
             );
         }
