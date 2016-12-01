@@ -2,6 +2,7 @@
 
 use Anomaly\Streams\Platform\Model\Templates\TemplatesTemplatesEntryModel;
 use Anomaly\TemplatesModule\Group\Contract\GroupInterface;
+use Anomaly\TemplatesModule\Template\Command\GetExtension;
 use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
 
 /**
@@ -21,10 +22,12 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
      */
     public function path()
     {
-        $path = $this->getPath();
+        $group = $this->getGroup();
 
-        if (in_array($this->getType(), ['twig', 'md', 'html'])) {
-            $path = dirname($path) . '/' . basename($path, '.' . $this->extension());
+        $path = $group->getSlug() . '/' . $this->getSlug();
+
+        if (!in_array($this->getType(), ['twig', 'markdown', 'html'])) {
+            $path = $path . '.' . $this->extension();
         }
 
         return $path;
@@ -47,17 +50,7 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
      */
     public function extension()
     {
-        return pathinfo($this->getPath(), PATHINFO_EXTENSION);
-    }
-
-    /**
-     * Get the path.
-     *
-     * @return string
-     */
-    public function getPath()
-    {
-        return $this->path;
+        return $this->dispatch(new GetExtension($this->getType()));
     }
 
     /**

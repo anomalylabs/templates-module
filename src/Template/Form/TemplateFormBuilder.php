@@ -2,7 +2,6 @@
 
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 use Anomaly\TemplatesModule\Group\Contract\GroupInterface;
-use Anomaly\TemplatesModule\Template\Command\SetPath;
 use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
 
 /**
@@ -45,7 +44,7 @@ class TemplateFormBuilder extends FormBuilder
      *
      * @param TemplateFormBuilder $builder
      */
-    public function onPosting()
+    public function onSaving()
     {
         /* @var TemplateInterface $entry */
         $entry = $this->getFormEntry();
@@ -57,31 +56,6 @@ class TemplateFormBuilder extends FormBuilder
         if ($group = $this->getGroup()) {
             $entry->setAttribute('group', $group);
         }
-
-        $entry->setAttribute('slug', $this->getPostValue('slug'));
-
-        $this->dispatch(new SetPath($entry));
-    }
-
-    /**
-     * Return the editor type.
-     *
-     * @return null|string
-     * @throws \Exception
-     */
-    public function editor()
-    {
-        if ($type = $this->getType()) {
-            return $type;
-        }
-
-        $entry = $this->getFormEntry();
-
-        if ($entry && $type = $entry->getType()) {
-            return $type;
-        }
-
-        throw new \Exception('The type could not be determined.');
     }
 
     /**

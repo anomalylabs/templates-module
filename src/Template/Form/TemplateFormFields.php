@@ -32,7 +32,7 @@ class TemplateFormFields
                 ],
                 'content' => [
                     'config' => [
-                        'mode' => $builder->editor(),
+                        'mode' => $type,
                     ],
                 ],
             ]

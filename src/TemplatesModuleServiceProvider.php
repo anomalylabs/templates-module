@@ -112,7 +112,7 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
                     $template = $route->getTemplate();
 
                     if (!in_array($template->extension(), ['twig', 'html', 'md'])) {
-                        return file_get_contents($application->getStoragePath('templates/' . $template->getPath()));
+                        return file_get_contents($application->getStoragePath('templates/' . $template->path()));
                     }
 
                     return $views->make($template->location());

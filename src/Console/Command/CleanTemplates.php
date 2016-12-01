@@ -27,7 +27,7 @@ class CleanTemplates
     {
         /* @var TemplateInterface|EloquentModel $template */
         foreach ($templates->all() as $template) {
-            if (!$filesystem->exists($application->getStoragePath('templates/' . $template->getPath()))) {
+            if (!$filesystem->exists($application->getStoragePath('templates/' . $template->path()))) {
                 $templates->delete($template);
             }
         }
