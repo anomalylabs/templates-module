@@ -15,6 +15,16 @@ class RouteModel extends TemplatesRoutesEntryModel implements RouteInterface
 {
 
     /**
+     * Get the URI.
+     *
+     * @return string
+     */
+    public function getUri()
+    {
+        return $this->uri;
+    }
+
+    /**
      * Get the template.
      *
      * @return TemplateInterface

@@ -14,6 +14,13 @@ interface RouteInterface extends EntryInterface
 {
 
     /**
+     * Get the URI.
+     *
+     * @return string
+     */
+    public function getUri();
+
+    /**
      * Get the template.
      *
      * @return TemplateInterface

@@ -23,22 +23,13 @@ class AnomalyModuleTemplatesCreateTemplatesFields extends Migration
     protected $fields = [
         'uri'         => 'anomaly.field_type.text',
         'name'        => 'anomaly.field_type.text',
+        'type'        => 'anomaly.field_type.text',
         'description' => 'anomaly.field_type.textarea',
         'slug'        => [
             'type'   => 'anomaly.field_type.slug',
             'config' => [
                 'type'    => '-',
                 'slugify' => 'name',
-            ],
-        ],
-        'type'        => [
-            'type'   => 'anomaly.field_type.select',
-            'config' => [
-                'options' => [
-                    'twig' => 'HTML',
-                    'css'  => 'CSS',
-                    'js'   => 'JS',
-                ],
             ],
         ],
         'group'       => [

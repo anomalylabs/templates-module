@@ -74,8 +74,8 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     /**
      * Register the addon.
      *
-     * @param Factory     $views
-     * @param AssetPaths  $assets
+     * @param Factory $views
+     * @param AssetPaths $assets
      * @param Application $application
      */
     public function register(Factory $views, AssetPaths $assets, Application $application)
@@ -87,16 +87,16 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     /**
      * Map template routes.
      *
-     * @param Router                   $router
+     * @param Router $router
      * @param RouteRepositoryInterface $routes
      */
     public function map(Router $router, RouteRepositoryInterface $routes)
     {
+        /* @var RouteInterface $route */
         foreach ($routes->all() as $route) {
 
-            /* @var RouteInterface $route */
             $router->any(
-                $route->uri,
+                $route->getUri(),
                 function (Factory $views) use ($route) {
 
                     $template = $route->getTemplate();
