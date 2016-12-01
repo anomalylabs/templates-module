@@ -1,10 +1,12 @@
 <?php namespace Anomaly\TemplatesModule\Console\Command;
 
 use Anomaly\Streams\Platform\Application\Application;
+use Anomaly\Streams\Platform\Model\EloquentModel;
 use Anomaly\Streams\Platform\Support\Str;
 use Anomaly\TemplatesModule\Group\Contract\GroupInterface;
 use Anomaly\TemplatesModule\Group\Contract\GroupRepositoryInterface;
 use Anomaly\TemplatesModule\Template\Command\GetType;
+use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
 use Anomaly\TemplatesModule\Template\Contract\TemplateRepositoryInterface;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -50,6 +52,7 @@ class SyncTemplates
 
             $slug = $slug = $file->getBasename('.' . $file->getExtension());
 
+            /* @var TemplateInterface|EloquentModel $template */
             if (!$template = $group->getTemplates()->findBy('slug', $slug)) {
                 $template = $templates->newInstance(
                     [
@@ -61,7 +64,7 @@ class SyncTemplates
                 );
             }
 
-            $template->setAttribute('content', file_get_contents($file->getPathname()));
+            $template->setRawAttribute('content', file_get_contents($file->getPathname()));
 
             $templates->save($template);
         }
