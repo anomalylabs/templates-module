@@ -16,9 +16,10 @@ interface TemplateInterface extends EntryInterface
     /**
      * Return the template path.
      *
+     * @param bool $real
      * @return string
      */
-    public function path();
+    public function path($real = false);
 
     /**
      * Return the template location.

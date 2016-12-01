@@ -23,6 +23,10 @@ class TemplateStorage extends EditorFieldTypeStorage
         /* @var TemplateInterface $entry */
         $entry = $this->fieldType->getEntry();
 
+        if (!$entry->getId()) {
+            return null;
+        }
+
         if (!$group = $entry->getGroup()) {
             return null;
         }
@@ -39,6 +43,10 @@ class TemplateStorage extends EditorFieldTypeStorage
     {
         /* @var TemplateInterface $entry */
         $entry = $this->fieldType->getEntry();
+
+        if (!$entry->getId()) {
+            return null;
+        }
 
         $this->fieldType->configSet('mode', $entry->getType());
 

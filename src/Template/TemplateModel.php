@@ -18,15 +18,16 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
     /**
      * Return the template path.
      *
+     * @param bool $real
      * @return string
      */
-    public function path()
+    public function path($real = false)
     {
         $group = $this->getGroup();
 
         $path = $group->getSlug() . '/' . $this->getSlug();
 
-        if (!in_array($this->getType(), ['twig', 'markdown', 'html'])) {
+        if ($real || !in_array($this->getType(), ['twig', 'markdown', 'html'])) {
             $path = $path . '.' . $this->extension();
         }
 

@@ -38,13 +38,13 @@ class LookupTableBuilder extends \Anomaly\RelationshipFieldType\Table\LookupTabl
             'wrapper'     => '
                     <strong>{value.name}</strong>
                     <br>
-                    <small class="text-muted">{value.path}</small>
+                    <small class="text-muted">{value.location}</small>
                     <br>
                     {value.type}',
             'value'       => [
-                'name' => 'entry.name',
-                'path' => 'entry.path',
-                'type' => 'entry.label(entry.type.key|upper)',
+                'name'     => 'entry.name',
+                'location' => 'entry.location()',
+                'type'     => 'entry.label(entry.type|upper)',
             ],
         ],
         'description',

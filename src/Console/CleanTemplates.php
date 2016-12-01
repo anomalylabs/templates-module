@@ -1,19 +1,19 @@
 <?php namespace Anomaly\TemplatesModule\Console;
 
-use Anomaly\TemplatesModule\Console\Command\SyncGroups as SyncGroupsCommand;
-use Anomaly\TemplatesModule\Console\Command\SyncTemplates as SyncTemplatesCommand;
+use Anomaly\TemplatesModule\Console\Command\CleanGroups as CleanGroupsCommand;
+use Anomaly\TemplatesModule\Console\Command\CleanTemplates as CleanTemplatesCommand;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class SyncTemplates
+ * Class CleanTemplates
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class SyncTemplates extends Command
+class CleanTemplates extends Command
 {
 
     use DispatchesJobs;
@@ -23,16 +23,14 @@ class SyncTemplates extends Command
      *
      * @var string
      */
-    protected $name = 'templates:sync';
+    protected $name = 'templates:clean';
 
     /**
      * Fire the command.
      */
     public function fire()
     {
-        $this->dispatch(new SyncGroupsCommand());
-        $this->dispatch(new SyncTemplatesCommand());
-
-        $this->call('templates:clean');
+        $this->dispatch(new CleanGroupsCommand());
+        $this->dispatch(new CleanTemplatesCommand());
     }
 }
