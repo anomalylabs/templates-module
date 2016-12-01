@@ -37,9 +37,9 @@ class GetExtension
      */
     public function handle(Repository $config)
     {
-        foreach ($config->get('anomaly.field_type.editor::editor.modes') as $mode => $type) {
-            if ($mode == $this->type) {
-                return $type['extension'];
+        foreach ($config->get('anomaly.module.templates::templates.types') as $extension => $type) {
+            if ($type == $this->type) {
+                return $extension;
             }
         }
 

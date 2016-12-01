@@ -20,10 +20,6 @@ class TemplateStorage extends EditorFieldTypeStorage
      */
     public function directory()
     {
-        if (!parent::directory()) {
-            return null;
-        }
-
         /* @var TemplateInterface $entry */
         $entry = $this->fieldType->getEntry();
 
@@ -41,10 +37,6 @@ class TemplateStorage extends EditorFieldTypeStorage
      */
     public function filename()
     {
-        if (!parent::filename()) {
-            return false;
-        }
-
         /* @var TemplateInterface $entry */
         $entry = $this->fieldType->getEntry();
 
