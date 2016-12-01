@@ -6,6 +6,7 @@ use Anomaly\Streams\Platform\Asset\AssetPaths;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesGroupsEntryModel;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesRoutesEntryModel;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesTemplatesEntryModel;
+use Anomaly\TemplatesModule\Console\SyncTemplates;
 use Anomaly\TemplatesModule\Group\Contract\GroupRepositoryInterface;
 use Anomaly\TemplatesModule\Group\GroupModel;
 use Anomaly\TemplatesModule\Group\GroupRepository;
@@ -30,23 +31,12 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
 {
 
     /**
-     * The addon routes.
+     * The addon commands.
      *
      * @var array
      */
-    protected $routes = [
-        'admin/templates'                   => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@index',
-        'admin/templates/choose'            => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@choose',
-        'admin/templates/create'            => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@create',
-        'admin/templates/edit/{id}'         => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@edit',
-        'admin/templates/routes'            => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@index',
-        'admin/templates/routes/create'     => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@create',
-        'admin/templates/routes/edit/{id}'  => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@edit',
-        'admin/templates/routes/view/{id}'  => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@view',
-        'admin/templates/{group}'           => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@index',
-        'admin/templates/{group}/create'    => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@create',
-        'admin/templates/{group}/choose'    => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@choose',
-        'admin/templates/{group}/edit/{id}' => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@edit',
+    protected $commands = [
+        SyncTemplates::class,
     ];
 
     /**
@@ -69,6 +59,26 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
         GroupRepositoryInterface::class    => GroupRepository::class,
         RouteRepositoryInterface::class    => RouteRepository::class,
         TemplateRepositoryInterface::class => TemplateRepository::class,
+    ];
+
+    /**
+     * The addon routes.
+     *
+     * @var array
+     */
+    protected $routes = [
+        'admin/templates'                   => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@index',
+        'admin/templates/choose'            => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@choose',
+        'admin/templates/create'            => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@create',
+        'admin/templates/edit/{id}'         => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@edit',
+        'admin/templates/routes'            => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@index',
+        'admin/templates/routes/create'     => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@create',
+        'admin/templates/routes/edit/{id}'  => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@edit',
+        'admin/templates/routes/view/{id}'  => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@view',
+        'admin/templates/{group}'           => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@index',
+        'admin/templates/{group}/create'    => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@create',
+        'admin/templates/{group}/choose'    => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@choose',
+        'admin/templates/{group}/edit/{id}' => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@edit',
     ];
 
     /**

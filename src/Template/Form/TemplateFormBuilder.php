@@ -2,6 +2,7 @@
 
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 use Anomaly\TemplatesModule\Group\Contract\GroupInterface;
+use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
 
 /**
  * Class TemplateFormBuilder
@@ -107,6 +108,23 @@ class TemplateFormBuilder extends FormBuilder
     public function getGroup()
     {
         return $this->group;
+    }
+    
+    /**
+     * Get the contextual group ID.
+     *
+     * @return int
+     */
+    public function getGroupId()
+    {
+        if ($group = $this->getGroup()) {
+            return $group->getId();
+        }
+
+        /* @var TemplateInterface $entry */
+        $entry = $this->getFormEntry();
+
+        return $entry->getGroupId();
     }
 
     /**
