@@ -28,18 +28,21 @@ class RouteTableButtons
                 'template' => [
                     'type' => 'primary',
                     'icon' => 'fa fa-object-ungroup',
+                    'enabled' => function (RouteInterface $entry) {
+                        return ($entry->getTemplate());
+                    },
                     'href' => function (RouteInterface $entry) {
 
-                        $template = $entry
-                            ->getTemplate()
-                            ->getId();
+                        if (!$template = $entry->getTemplate()) {
+                            return null;
+                        }
 
                         $group = $entry
                             ->getTemplate()
                             ->getGroup()
                             ->getSlug();
 
-                        return "/admin/templates/{$group}/edit/{$template}";
+                        return "/admin/templates/{$group}/edit/{$template->getId()}";
                     },
                 ],
             ]
