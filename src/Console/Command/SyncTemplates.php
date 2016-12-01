@@ -4,7 +4,7 @@ use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Support\Str;
 use Anomaly\TemplatesModule\Group\Contract\GroupInterface;
 use Anomaly\TemplatesModule\Group\Contract\GroupRepositoryInterface;
-use Anomaly\TemplatesModule\Template\Command\GetMode;
+use Anomaly\TemplatesModule\Template\Command\GetType;
 use Anomaly\TemplatesModule\Template\Contract\TemplateRepositoryInterface;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -55,7 +55,7 @@ class SyncTemplates
                         'group'   => $group,
                         'name'    => ucwords($str->humanize($slug)),
                         'content' => file_get_contents($file->getPathname()),
-                        'type'    => $this->dispatch(new GetMode($file->getExtension())),
+                        'type'    => $this->dispatch(new GetType($file->getExtension())),
                     ]
                 );
             }

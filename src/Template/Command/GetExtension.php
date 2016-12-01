@@ -3,30 +3,30 @@
 use Illuminate\Contracts\Config\Repository;
 
 /**
- * Class GetMode
+ * Class GetExtension
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class GetMode
+class GetExtension
 {
 
     /**
-     * The file extension.
+     * The file type.
      *
      * @var string
      */
-    protected $extension;
+    protected $type;
 
     /**
-     * Create a new GetMode instance.
+     * Create a new GetExtension instance.
      *
-     * @param $extension
+     * @param $type
      */
-    public function __construct($extension)
+    public function __construct($type)
     {
-        $this->extension = $extension;
+        $this->type = $type;
     }
 
     /**
@@ -38,8 +38,8 @@ class GetMode
     public function handle(Repository $config)
     {
         foreach ($config->get('anomaly.field_type.editor::editor.modes') as $mode => $type) {
-            if ($type['extension'] == $this->extension) {
-                return $mode;
+            if ($mode == $this->type) {
+                return $type['extension'];
             }
         }
 

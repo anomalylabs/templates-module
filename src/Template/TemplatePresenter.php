@@ -1,6 +1,5 @@
 <?php namespace Anomaly\TemplatesModule\Template;
 
-use Anomaly\EditorFieldType\EditorFieldType;
 use Anomaly\Streams\Platform\Entry\EntryPresenter;
 use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
 
@@ -20,27 +19,6 @@ class TemplatePresenter extends EntryPresenter
      * @var TemplateInterface
      */
     protected $object;
-
-    /**
-     * Return the hinted path.
-     *
-     * @return null|string
-     */
-    public function path()
-    {
-        /* @var EditorFieldType $editor */
-        $editor = $this->object->getFieldType('content');
-
-        $group = $this->object->getGroup();
-
-        $path = "templates::{$group->getSlug()}/{$this->object->getSlug()}";
-
-        if (!in_array($this->object->getType(), ['twig', 'html'])) {
-            $path .= '.' . $editor->extension();
-        }
-
-        return $path;
-    }
 
     /**
      * Return a label.

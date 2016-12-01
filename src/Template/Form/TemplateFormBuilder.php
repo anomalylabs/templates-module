@@ -2,6 +2,7 @@
 
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 use Anomaly\TemplatesModule\Group\Contract\GroupInterface;
+use Anomaly\TemplatesModule\Template\Command\SetPath;
 use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
 
 /**
@@ -34,18 +35,20 @@ class TemplateFormBuilder extends FormBuilder
      * @var array
      */
     protected $skips = [
+        'path',
         'type',
         'group',
     ];
 
     /**
-     * Fire just before saving.
+     * Fire just before posting.
      *
      * @param TemplateFormBuilder $builder
      */
-    public function onSaving()
+    public function onPosting()
     {
-        $entry = $this->getFormEntry();;
+        /* @var TemplateInterface $entry */
+        $entry = $this->getFormEntry();
 
         if ($type = $this->getType()) {
             $entry->setAttribute('type', $type);
@@ -54,6 +57,10 @@ class TemplateFormBuilder extends FormBuilder
         if ($group = $this->getGroup()) {
             $entry->setAttribute('group', $group);
         }
+
+        $entry->setAttribute('slug', $this->getPostValue('slug'));
+
+        $this->dispatch(new SetPath($entry));
     }
 
     /**
@@ -84,7 +91,9 @@ class TemplateFormBuilder extends FormBuilder
      */
     public function getType()
     {
-        return $this->type;
+        $entry = $this->getFormEntry();
+
+        return $this->type ?: $entry->getType();
     }
 
     /**
@@ -109,7 +118,7 @@ class TemplateFormBuilder extends FormBuilder
     {
         return $this->group;
     }
-    
+
     /**
      * Get the contextual group ID.
      *

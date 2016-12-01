@@ -15,13 +15,50 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
 {
 
     /**
-     * Eager loaded relations.
+     * Return the template path.
      *
-     * @var array
+     * @return string
      */
-    protected $with = [
-        'group',
-    ];
+    public function path()
+    {
+        $path = $this->getPath();
+
+        if (in_array($this->getType(), ['twig', 'md', 'html'])) {
+            $path = dirname($path) . '/' . basename($path, '.' . $this->extension());
+        }
+
+        return $path;
+    }
+
+    /**
+     * Return the file extension.
+     *
+     * @return string
+     */
+    public function extension()
+    {
+        return pathinfo($this->getPath(), PATHINFO_EXTENSION);
+    }
+
+    /**
+     * Return the template location.
+     *
+     * @return string
+     */
+    public function location()
+    {
+        return "templates::{$this->path()}";
+    }
+
+    /**
+     * Get the path.
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
 
     /**
      * Get the slug.
