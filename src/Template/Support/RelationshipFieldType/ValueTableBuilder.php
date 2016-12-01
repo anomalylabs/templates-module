@@ -23,7 +23,7 @@ class ValueTableBuilder extends \Anomaly\RelationshipFieldType\Table\ValueTableB
                 'content',
             ],
         ],
-        'type',
+        'extension',
     ];
 
     /**

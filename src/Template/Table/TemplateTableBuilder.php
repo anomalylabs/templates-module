@@ -34,7 +34,7 @@ class TemplateTableBuilder extends TableBuilder
                 'content',
             ],
         ],
-        'type',
+        'extension',
     ];
 
     /**
@@ -48,7 +48,7 @@ class TemplateTableBuilder extends TableBuilder
             'wrapper'     => '
                     <strong>{value.name}</strong>
                     <br>
-                    <small class="text-muted">{value.path}</small>
+                    <small class="text-muted">templates::{value.path}</small>
                     <br>
                     {value.type}',
             'value'       => [

@@ -23,7 +23,7 @@ class LookupTableBuilder extends \Anomaly\RelationshipFieldType\Table\LookupTabl
                 'content',
             ],
         ],
-        'type',
+        'extension',
         'group',
     ];
 

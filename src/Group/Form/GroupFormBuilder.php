@@ -10,7 +10,12 @@ class GroupFormBuilder extends FormBuilder
      *
      * @var array|string
      */
-    protected $fields = [];
+    protected $fields = [
+        '*',
+        'slug' => [
+            'disabled' => 'edit',
+        ],
+    ];
 
     /**
      * Fields to skip.

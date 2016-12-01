@@ -18,15 +18,16 @@ class TemplateFormFields
      */
     public function handle(TemplateFormBuilder $builder)
     {
-        $group = $builder->getGroupId();
-        $id    = $builder->getFormEntryId();
+        $extension = $builder->getExtension();
+        $group     = $builder->getGroupId();
+        $id        = $builder->getFormEntryId();
 
         $builder->setFields(
             [
                 '*',
                 'slug'    => [
                     'rules' => [
-                        'unique:templates_templates,slug,' . $id . ',id,group_id,' . $group,
+                        'unique:templates_templates,slug,' . $id . ',id,group_id,' . $group . ',extension,' . $extension,
                     ],
                 ],
                 'content' => [

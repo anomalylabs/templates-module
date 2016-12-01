@@ -15,11 +15,11 @@ class TemplateFormBuilder extends FormBuilder
 {
 
     /**
-     * The template type.
+     * The template extension.
      *
      * @var null|string
      */
-    protected $type = null;
+    protected $extension = null;
 
     /**
      * The group instance.
@@ -34,8 +34,9 @@ class TemplateFormBuilder extends FormBuilder
      * @var array
      */
     protected $skips = [
-        'type',
+        'extension',
         'group',
+        'path',
     ];
 
     /**
@@ -45,57 +46,70 @@ class TemplateFormBuilder extends FormBuilder
      */
     public function onSaving()
     {
-        $entry = $this->getFormEntry();;
+        /* @var TemplateInterface $entry */
+        $entry = $this->getFormEntry();
 
-        if ($type = $this->getType()) {
-            $entry->setAttribute('type', $type);
+        if ($extension = $this->getExtension()) {
+            $entry->setAttribute('extension', $extension);
         }
 
         if ($group = $this->getGroup()) {
             $entry->setAttribute('group', $group);
         }
+
+        if (!$entry->getAttribute('path')) {
+
+            $group     = $this->getGroup();
+            $template  = $this->getFormValue('slug');
+            $extension = $entry->getExtension();
+
+            $entry->setAttribute('path', "{$group->getSlug()}/{$template}.{$extension}");
+        }
     }
 
     /**
-     * Return the editor type.
+     * Return the editor extension.
      *
      * @return null|string
      * @throws \Exception
      */
     public function editor()
     {
-        if ($type = $this->getType()) {
-            return $type;
+        if ($extension = $this->getExtension()) {
+            return config('anomaly.module.templates::templates.mode.' . $extension);
         }
 
+        /* @var TemplateInterface $entry */
         $entry = $this->getFormEntry();
 
-        if ($entry && $type = $entry->getType()) {
-            return $type;
+        if ($entry && $extension = $entry->getExtension()) {
+            return config('anomaly.module.templates::templates.mode.' . $extension);
         }
 
-        throw new \Exception('The type could not be determined.');
+        throw new \Exception('The extension could not be determined.');
     }
 
     /**
-     * Get the type.
+     * Get the extension.
      *
      * @return null|string
      */
-    public function getType()
+    public function getExtension()
     {
-        return $this->type;
+        $entry = $this->getFormEntry();
+
+        return $this->extension ?: $entry->getExtension();
     }
 
     /**
-     * Set the type.
+     * Set the extension.
      *
-     * @param $type
+     * @param $extension
      * @return $this
      */
-    public function setType($type)
+    public function setExtension($extension)
     {
-        $this->type = $type;
+        $this->extension = $extension;
 
         return $this;
     }

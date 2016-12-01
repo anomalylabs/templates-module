@@ -22,27 +22,6 @@ class TemplatePresenter extends EntryPresenter
     protected $object;
 
     /**
-     * Return the hinted path.
-     *
-     * @return null|string
-     */
-    public function path()
-    {
-        /* @var EditorFieldType $editor */
-        $editor = $this->object->getFieldType('content');
-
-        $group = $this->object->getGroup();
-
-        $path = "templates::{$group->getSlug()}/{$this->object->getSlug()}";
-
-        if (!in_array($this->object->getType(), ['twig', 'html'])) {
-            $path .= '.' . $editor->extension();
-        }
-
-        return $path;
-    }
-
-    /**
      * Return a label.
      *
      * @param null $text
@@ -52,15 +31,15 @@ class TemplatePresenter extends EntryPresenter
      */
     public function label($text = null, $context = null, $size = null)
     {
-        if (!$context && in_array($this->object->getType(), ['css', 'less', 'scss'])) {
+        if (!$context && in_array($this->object->getExtension(), ['css', 'less', 'scss'])) {
             $context = 'info';
         }
 
-        if (!$context && in_array($this->object->getType(), ['html', 'twig'])) {
+        if (!$context && in_array($this->object->getExtension(), ['html', 'twig'])) {
             $context = 'primary';
         }
 
-        if (!$context && in_array($this->object->getType(), ['js'])) {
+        if (!$context && in_array($this->object->getExtension(), ['js'])) {
             $context = 'danger';
         }
 

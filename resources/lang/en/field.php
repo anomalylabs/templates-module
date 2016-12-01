@@ -27,8 +27,8 @@ return [
         'instructions' => 'Manage the template content.',
         'warning'      => 'When in debug mode you can modify the storage file directly.',
     ],
-    'type'        => [
-        'name' => 'Type',
+    'extension'        => [
+        'name' => 'Extension',
     ],
     'uri'         => [
         'name'         => 'URI',

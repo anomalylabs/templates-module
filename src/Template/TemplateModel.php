@@ -24,6 +24,16 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
     ];
 
     /**
+     * Return the editor mode.
+     *
+     * @return string
+     */
+    public function editor()
+    {
+        return config('anomaly.module.templates::templates.mode.' . $this->getExtension());
+    }
+
+    /**
      * Get the slug.
      *
      * @return string
@@ -34,13 +44,13 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
     }
 
     /**
-     * Get the type.
+     * Get the extension.
      *
      * @return string
      */
-    public function getType()
+    public function getExtension()
     {
-        return $this->type;
+        return $this->extension;
     }
 
     /**

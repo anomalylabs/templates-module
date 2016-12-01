@@ -14,6 +14,13 @@ interface TemplateInterface extends EntryInterface
 {
 
     /**
+     * Return the editor mode.
+     *
+     * @return string
+     */
+    public function editor();
+
+    /**
      * Get the slug.
      *
      * @return string
@@ -21,11 +28,11 @@ interface TemplateInterface extends EntryInterface
     public function getSlug();
 
     /**
-     * Get the type.
+     * Get the extension.
      *
      * @return string
      */
-    public function getType();
+    public function getExtension();
 
     /**
      * Get the related group.

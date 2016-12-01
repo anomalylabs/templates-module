@@ -28,7 +28,7 @@ class AnomalyModuleTemplatesCreateTemplatesStream extends Migration
      * @var array
      */
     protected $assignments = [
-        'type'  => [
+        'extension'  => [
             'required' => true,
         ],
         'name'  => [
@@ -36,6 +36,10 @@ class AnomalyModuleTemplatesCreateTemplatesStream extends Migration
         ],
         'slug'  => [
             'required' => true,
+        ],
+        'path'  => [
+            'required' => true,
+            'unique'   => true,
         ],
         'description',
         'group' => [

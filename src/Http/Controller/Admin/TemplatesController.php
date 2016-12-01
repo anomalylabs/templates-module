@@ -1,6 +1,5 @@
 <?php namespace Anomaly\TemplatesModule\Http\Controller\Admin;
 
-use Anomaly\EditorFieldType\EditorFieldType;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Anomaly\TemplatesModule\Group\Contract\GroupInterface;
 use Anomaly\TemplatesModule\Group\Contract\GroupRepositoryInterface;
@@ -58,24 +57,17 @@ class TemplatesController extends AdminController
     /**
      * Choose a group to view templates for.
      *
-     * @param EditorFieldType $editor
-     * @param Repository      $config
+     * @param Repository $config
      * @return \Illuminate\Contracts\View\View|mixed
      */
-    public function choose(EditorFieldType $editor, Repository $config)
+    public function choose(Repository $config)
     {
+        $types = $config->get('anomaly.module.templates::templates.types');
+
         return $this->view->make(
             'anomaly.module.templates::admin/templates/choose',
             [
-                'types' => array_combine(
-                    array_keys($config->get($editor->getNamespace('editor.modes'))),
-                    array_map(
-                        function ($mode) {
-                            return $mode['name'];
-                        },
-                        $config->get($editor->getNamespace('editor.modes'))
-                    )
-                ),
+                'types' => $types,
             ]
         );
     }
@@ -93,11 +85,11 @@ class TemplatesController extends AdminController
             return $this->redirect->to('admin/templates');
         }
 
-        $type = $this->request->get('type');
+        $extension = $this->request->get('extension');
 
         return $form
             ->setGroup($group)
-            ->setType($type)
+            ->setExtension($extension)
             ->render();
     }
 
