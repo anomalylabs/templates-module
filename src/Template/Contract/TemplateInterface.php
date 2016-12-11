@@ -14,13 +14,12 @@ interface TemplateInterface extends EntryInterface
 {
 
     /**
-     * Return the template path.
+     * Return the file path.
      *
-     * @param bool $real
      * @return string
      */
-    public function path($real = false);
-
+    public function path();
+    
     /**
      * Return the template location.
      *
@@ -34,6 +33,13 @@ interface TemplateInterface extends EntryInterface
      * @return string
      */
     public function extension();
+
+    /**
+     * Get the path.
+     *
+     * @return string
+     */
+    public function getPath();
 
     /**
      * Get the slug.

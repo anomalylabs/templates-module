@@ -1,5 +1,6 @@
 <?php namespace Anomaly\TemplatesModule\Template;
 
+use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesTemplatesEntryModel;
 use Anomaly\TemplatesModule\Group\Contract\GroupInterface;
 use Anomaly\TemplatesModule\Template\Command\GetExtension;
@@ -16,22 +17,16 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
 {
 
     /**
-     * Return the template path.
+     * Return the file path.
      *
-     * @param bool $real
      * @return string
      */
-    public function path($real = false)
+    public function path()
     {
-        $group = $this->getGroup();
+        /* @var Application $application */
+        $application = app(Application::class);
 
-        $path = $group->getSlug() . '/' . $this->getSlug();
-
-        if ($real || !in_array($this->getType(), ['twig', 'markdown', 'html'])) {
-            $path = $path . '.' . $this->extension();
-        }
-
-        return $path;
+        return $application->getStoragePath('templates/' . $this->getPath());
     }
 
     /**
@@ -41,7 +36,13 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
      */
     public function location()
     {
-        return "templates::{$this->path()}";
+        $path = $this->getPath();
+
+        if (in_array($this->getType(), ['twig', 'html', 'markdown'])) {
+            $path = dirname($path) . '/' . basename($path, '.' . $this->extension());
+        }
+
+        return "templates::{$path}";
     }
 
     /**
@@ -52,6 +53,16 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
     public function extension()
     {
         return $this->dispatch(new GetExtension($this->getType()));
+    }
+
+    /**
+     * Get the path.
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**

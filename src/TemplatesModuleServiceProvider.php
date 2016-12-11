@@ -32,6 +32,15 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
 {
 
     /**
+     * The addon plugins.
+     *
+     * @var array
+     */
+    protected $plugins = [
+        TemplatesModulePlugin::class,
+    ];
+
+    /**
      * The addon commands.
      *
      * @var array
