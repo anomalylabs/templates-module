@@ -19,7 +19,7 @@ interface TemplateInterface extends EntryInterface
      * @return string
      */
     public function path();
-    
+
     /**
      * Return the template location.
      *
@@ -68,4 +68,11 @@ interface TemplateInterface extends EntryInterface
      * @return int
      */
     public function getGroupId();
+
+    /**
+     * Get the content.
+     *
+     * @return string
+     */
+    public function getContent();
 }

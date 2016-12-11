@@ -7,6 +7,7 @@ use Anomaly\Streams\Platform\Model\Templates\TemplatesGroupsEntryModel;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesRoutesEntryModel;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesTemplatesEntryModel;
 use Anomaly\TemplatesModule\Console\CleanTemplates;
+use Anomaly\TemplatesModule\Console\PushTemplates;
 use Anomaly\TemplatesModule\Console\SyncTemplates;
 use Anomaly\TemplatesModule\Group\Contract\GroupRepositoryInterface;
 use Anomaly\TemplatesModule\Group\GroupModel;
@@ -47,6 +48,7 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
      */
     protected $commands = [
         SyncTemplates::class,
+        PushTemplates::class,
         CleanTemplates::class,
     ];
 

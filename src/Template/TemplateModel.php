@@ -104,4 +104,14 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
     {
         return $this->group_id;
     }
+
+    /**
+     * Get the content.
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
 }
