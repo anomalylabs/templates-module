@@ -44,4 +44,14 @@ class TemplatePresenter extends EntryPresenter
 
         return parent::label($text, $context, $size);
     }
+
+    /**
+     * Return the content.
+     *
+     * @return string
+     */
+    public function content()
+    {
+        return (string)$this->object->getContent();
+    }
 }
