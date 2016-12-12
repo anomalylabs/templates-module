@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'sync'         => 'Sync',
     'template'     => 'Template',
     'templates'    => 'Templates',
     'add_route'    => 'Add Route',

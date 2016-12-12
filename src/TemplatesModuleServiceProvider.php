@@ -88,6 +88,7 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
         'admin/templates/routes/create'     => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@create',
         'admin/templates/routes/edit/{id}'  => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@edit',
         'admin/templates/routes/view/{id}'  => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@view',
+        'admin/templates/sync'              => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@sync',
         'admin/templates/{group}'           => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@index',
         'admin/templates/{group}/create'    => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@create',
         'admin/templates/{group}/choose'    => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@choose',
@@ -97,8 +98,8 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     /**
      * Register the addon.
      *
-     * @param Factory $views
-     * @param AssetPaths $assets
+     * @param Factory     $views
+     * @param AssetPaths  $assets
      * @param Application $application
      */
     public function register(Factory $views, AssetPaths $assets, Application $application)
@@ -110,7 +111,7 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     /**
      * Map template routes.
      *
-     * @param Router $router
+     * @param Router                   $router
      * @param RouteRepositoryInterface $routes
      */
     public function map(Router $router, RouteRepositoryInterface $routes)

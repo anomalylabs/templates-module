@@ -1,5 +1,6 @@
 <?php namespace Anomaly\TemplatesModule\Http\Controller\Admin;
 
+use Anomaly\Streams\Platform\Console\Kernel;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Anomaly\TemplatesModule\Group\Contract\GroupInterface;
 use Anomaly\TemplatesModule\Group\Contract\GroupRepositoryInterface;
@@ -102,5 +103,20 @@ class TemplatesController extends AdminController
     public function edit(TemplateFormBuilder $form)
     {
         return $form->render($this->route->getParameter('id'));
+    }
+
+    /**
+     * Sync templates to the filesystem.
+     *
+     * @param Kernel $console
+     */
+    public function sync(Kernel $console)
+    {
+        $console->call('templates:sync');
+        $console->call('templates:push');
+
+        $this->messages->success('anomaly.module.templates::message.synced');
+
+        return $this->redirect->back();
     }
 }
