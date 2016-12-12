@@ -1,6 +1,7 @@
 <?php namespace Anomaly\TemplatesModule\Console;
 
 use Anomaly\TemplatesModule\Console\Command\PushTemplates as PushTemplatesCommand;
+use Anomaly\TemplatesModule\Template\Command\CheckDirectory;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Symfony\Component\Console\Input\InputOption;
@@ -29,6 +30,7 @@ class PushTemplates extends Command
      */
     public function fire()
     {
+        $this->dispatch(new CheckDirectory());
         $this->dispatch(new PushTemplatesCommand());
     }
 }
