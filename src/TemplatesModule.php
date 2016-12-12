@@ -28,6 +28,11 @@ class TemplatesModule extends Module
         'groups'    => [
             'buttons' => [
                 'new_group',
+                'sync' => [
+                    'type' => 'info',
+                    'icon' => 'refresh',
+                    'href' => 'admin/templates/sync',
+                ],
             ],
         ],
         'templates' => [
@@ -41,6 +46,11 @@ class TemplatesModule extends Module
                     'data-toggle' => 'modal',
                     'data-target' => '#modal',
                     'href'        => 'admin/templates/{request.route.parameters.group}/choose',
+                ],
+                'sync'         => [
+                    'type' => 'info',
+                    'icon' => 'refresh',
+                    'href' => 'admin/templates/sync',
                 ],
             ],
         ],
