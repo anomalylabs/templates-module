@@ -32,7 +32,5 @@ class SyncTemplates extends Command
     {
         $this->dispatch(new SyncGroupsCommand());
         $this->dispatch(new SyncTemplatesCommand());
-
-        $this->call('templates:clean');
     }
 }
