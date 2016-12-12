@@ -2,6 +2,7 @@
 
 use Anomaly\TemplatesModule\Console\Command\CleanGroups as CleanGroupsCommand;
 use Anomaly\TemplatesModule\Console\Command\CleanTemplates as CleanTemplatesCommand;
+use Anomaly\TemplatesModule\Template\Command\CheckDirectory;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Symfony\Component\Console\Input\InputOption;
@@ -30,6 +31,7 @@ class CleanTemplates extends Command
      */
     public function fire()
     {
+        $this->dispatch(new CheckDirectory());
         $this->dispatch(new CleanGroupsCommand());
         $this->dispatch(new CleanTemplatesCommand());
     }

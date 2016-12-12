@@ -2,6 +2,7 @@
 
 use Anomaly\TemplatesModule\Console\Command\SyncGroups as SyncGroupsCommand;
 use Anomaly\TemplatesModule\Console\Command\SyncTemplates as SyncTemplatesCommand;
+use Anomaly\TemplatesModule\Template\Command\CheckDirectory;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Symfony\Component\Console\Input\InputOption;
@@ -30,6 +31,7 @@ class SyncTemplates extends Command
      */
     public function fire()
     {
+        $this->dispatch(new CheckDirectory());
         $this->dispatch(new SyncGroupsCommand());
         $this->dispatch(new SyncTemplatesCommand());
     }
