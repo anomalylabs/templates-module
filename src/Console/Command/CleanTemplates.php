@@ -1,6 +1,5 @@
 <?php namespace Anomaly\TemplatesModule\Console\Command;
 
-use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Model\EloquentModel;
 use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
 use Anomaly\TemplatesModule\Template\Contract\TemplateRepositoryInterface;
@@ -20,14 +19,13 @@ class CleanTemplates
      * Handle the command.
      *
      * @param TemplateRepositoryInterface $templates
-     * @param Filesystem $filesystem
-     * @param Application $application
+     * @param Filesystem                  $filesystem
      */
-    public function handle(TemplateRepositoryInterface $templates, Filesystem $filesystem, Application $application)
+    public function handle(TemplateRepositoryInterface $templates, Filesystem $filesystem)
     {
         /* @var TemplateInterface|EloquentModel $template */
         foreach ($templates->all() as $template) {
-            if (!$filesystem->exists($application->getStoragePath('templates/' . $template->path(true)))) {
+            if (!$filesystem->exists($template->path())) {
                 $templates->delete($template);
             }
         }
