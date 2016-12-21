@@ -31,8 +31,7 @@ class CleanTemplates extends Command
      */
     public function fire()
     {
-        $this->dispatch(new CheckDirectory());
-        $this->dispatch(new CleanGroupsCommand());
         $this->dispatch(new CleanTemplatesCommand());
+        $this->dispatch(new CleanGroupsCommand());
     }
 }
