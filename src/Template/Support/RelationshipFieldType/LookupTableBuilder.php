@@ -20,7 +20,6 @@ class LookupTableBuilder extends \Anomaly\RelationshipFieldType\Table\LookupTabl
             'fields' => [
                 'name',
                 'slug',
-                'content',
             ],
         ],
         'type',
