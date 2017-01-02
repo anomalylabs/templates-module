@@ -31,7 +31,6 @@ class TemplateTableBuilder extends TableBuilder
             'fields' => [
                 'name',
                 'slug',
-                'content',
             ],
         ],
         'type',

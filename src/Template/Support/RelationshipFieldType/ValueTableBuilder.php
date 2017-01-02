@@ -20,7 +20,6 @@ class ValueTableBuilder extends \Anomaly\RelationshipFieldType\Table\ValueTableB
             'fields' => [
                 'name',
                 'slug',
-                'content',
             ],
         ],
         'type',
