@@ -25,6 +25,6 @@ class CheckDirectory
             return;
         }
 
-        $files->CheckDirectory($application->getStoragePath('templates'));
+        $files->makeDirectory($application->getStoragePath('templates'));
     }
 }
