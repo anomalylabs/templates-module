@@ -27,11 +27,11 @@ class SyncTemplates
     /**
      * Handle the command.
      *
-     * @param Str $str
-     * @param GroupRepositoryInterface $groups
+     * @param Str                         $str
+     * @param GroupRepositoryInterface    $groups
      * @param TemplateRepositoryInterface $templates
-     * @param Filesystem $filesystem
-     * @param Application $application
+     * @param Filesystem                  $filesystem
+     * @param Application                 $application
      */
     public function handle(
         Str $str,
@@ -56,15 +56,16 @@ class SyncTemplates
             if (!$template = $group->getTemplates()->findBy('slug', $slug)) {
                 $template = $templates->newInstance(
                     [
-                        'slug'  => $slug,
-                        'group' => $group,
-                        'name'  => ucwords($str->humanize($slug)),
-                        'type'  => $this->dispatch(new GetType($file->getExtension())),
+                        'slug'       => $slug,
+                        'group'      => $group,
+                        'name'       => ucwords($str->humanize($slug)),
+                        'type'       => $this->dispatch(new GetType($file->getExtension())),
+                        'created_at' => time(),
                     ]
                 );
             }
 
-            $template->setRawAttribute('content', file_get_contents($file->getPathname()));
+            $template->getContent();
 
             $templates->save($template);
         }
