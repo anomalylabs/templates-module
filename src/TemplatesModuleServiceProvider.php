@@ -118,19 +118,13 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     {
         /* @var RouteInterface $route */
         foreach ($routes->all() as $route) {
-
+            
             $router->any(
                 $route->getUri(),
-                function (Factory $views, Application $application) use ($route) {
-
-                    $template = $route->getTemplate();
-
-                    if (!in_array($template->extension(), ['twig', 'html', 'md'])) {
-                        return file_get_contents($application->getStoragePath('templates/' . $template->path()));
-                    }
-
-                    return $views->make($template->location());
-                }
+                [
+                    'template' => $route->getTemplateId(),
+                    'uses'     => 'Anomaly\TemplatesModule\Http\Controller\TemplatesController@view',
+                ]
             );
         }
     }

@@ -26,4 +26,11 @@ interface RouteInterface extends EntryInterface
      * @return TemplateInterface
      */
     public function getTemplate();
+
+    /**
+     * Get the template ID.
+     *
+     * @return int
+     */
+    public function getTemplateId();
 }

@@ -33,4 +33,14 @@ class RouteModel extends TemplatesRoutesEntryModel implements RouteInterface
     {
         return $this->template;
     }
+
+    /**
+     * Get the template ID.
+     *
+     * @return int
+     */
+    public function getTemplateId()
+    {
+        return $this->template_id;
+    }
 }
