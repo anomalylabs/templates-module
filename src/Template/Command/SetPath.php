@@ -1,5 +1,6 @@
 <?php namespace Anomaly\TemplatesModule\Template\Command;
 
+use Anomaly\Streams\Platform\Model\EloquentModel;
 use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
@@ -18,7 +19,7 @@ class SetPath
     /**
      * The template instance.
      *
-     * @var TemplateInterface
+     * @var TemplateInterface|EloquentModel
      */
     protected $template;
 
@@ -37,6 +38,8 @@ class SetPath
      */
     public function handle()
     {
+        $this->template->load('group');
+
         $slug  = $this->template->getSlug();
         $type  = $this->template->getType();
         $group = $this->template->getGroup();
