@@ -1,7 +1,7 @@
 <?php namespace Anomaly\TemplatesModule\Template\Command;
 
-use Anomaly\Streams\Platform\Model\EloquentModel;
 use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
+use Anomaly\TemplatesModule\Template\TemplateModel;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 /**
@@ -19,7 +19,7 @@ class SetPath
     /**
      * The template instance.
      *
-     * @var TemplateInterface|EloquentModel
+     * @var TemplateInterface|TemplateModel
      */
     protected $template;
 
