@@ -17,6 +17,15 @@ class GroupModel extends TemplatesGroupsEntryModel implements GroupInterface
 {
 
     /**
+     * The cascaded relations.
+     *
+     * @var array
+     */
+    protected $cascades = [
+        'templates',
+    ];
+
+    /**
      * Get the slug.
      *
      * @return string
