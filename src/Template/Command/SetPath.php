@@ -38,8 +38,6 @@ class SetPath
      */
     public function handle()
     {
-        $this->template->load('group');
-
         $slug  = $this->template->getSlug();
         $type  = $this->template->getType();
         $group = $this->template->getGroup();
