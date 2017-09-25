@@ -57,7 +57,7 @@ class RoutesController extends AdminController
      */
     public function view(RouteRepositoryInterface $routes)
     {
-        if (!$route = $routes->find($this->route->getParameter('id'))) {
+        if (!$route = $routes->find($this->route->parameter('id'))) {
             abort(404);
         }
 
