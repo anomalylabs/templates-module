@@ -46,7 +46,7 @@ class TemplatesController extends AdminController
     public function index(TemplateTableBuilder $table)
     {
         /* @var GroupInterface $group */
-        if (!$group = $this->groups->findBySlug($this->route->getParameter('group'))) {
+        if (!$group = $this->groups->findBySlug($this->route->parameter('group'))) {
             return $this->redirect->to('admin/templates');
         }
 
@@ -82,7 +82,7 @@ class TemplatesController extends AdminController
     public function create(TemplateFormBuilder $form)
     {
         /* @var GroupInterface $group */
-        if (!$group = $this->groups->findBySlug($this->route->getParameter('group'))) {
+        if (!$group = $this->groups->findBySlug($this->route->parameter('group'))) {
             return $this->redirect->to('admin/templates');
         }
 
@@ -102,7 +102,7 @@ class TemplatesController extends AdminController
      */
     public function edit(TemplateFormBuilder $form)
     {
-        return $form->render($this->route->getParameter('id'));
+        return $form->render($this->route->parameter('id'));
     }
 
     /**
