@@ -53,11 +53,12 @@ class RoutesController extends AdminController
      * Return the route view.
      *
      * @param RouteRepositoryInterface $routes
+     * @param                          $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function view(RouteRepositoryInterface $routes)
+    public function view(RouteRepositoryInterface $routes, $id)
     {
-        if (!$route = $routes->find($this->route->getParameter('id'))) {
+        if (!$route = $routes->find($id)) {
             abort(404);
         }
 

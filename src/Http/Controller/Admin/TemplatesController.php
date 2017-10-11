@@ -41,12 +41,13 @@ class TemplatesController extends AdminController
      * Display an index of existing entries.
      *
      * @param TemplateTableBuilder $table
+     * @param                      $group
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(TemplateTableBuilder $table)
+    public function index(TemplateTableBuilder $table, $group)
     {
         /* @var GroupInterface $group */
-        if (!$group = $this->groups->findBySlug($this->route->getParameter('group'))) {
+        if (!$group = $this->groups->findBySlug($group)) {
             return $this->redirect->to('admin/templates');
         }
 
@@ -77,12 +78,13 @@ class TemplatesController extends AdminController
      * Create a new entry.
      *
      * @param TemplateFormBuilder $form
+     * @param                     $group
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(TemplateFormBuilder $form)
+    public function create(TemplateFormBuilder $form, $group)
     {
         /* @var GroupInterface $group */
-        if (!$group = $this->groups->findBySlug($this->route->getParameter('group'))) {
+        if (!$group = $this->groups->findBySlug($group)) {
             return $this->redirect->to('admin/templates');
         }
 
@@ -98,11 +100,12 @@ class TemplatesController extends AdminController
      * Edit an existing entry.
      *
      * @param TemplateFormBuilder $form
+     * @param                     $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(TemplateFormBuilder $form)
+    public function edit(TemplateFormBuilder $form, $id)
     {
-        return $form->render($this->route->getParameter('id'));
+        return $form->render($id);
     }
 
     /**
