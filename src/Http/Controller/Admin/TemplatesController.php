@@ -100,11 +100,16 @@ class TemplatesController extends AdminController
      * Edit an existing entry.
      *
      * @param TemplateFormBuilder $form
+     * @param                     $group
      * @param                     $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(TemplateFormBuilder $form, $id)
+    public function edit(TemplateFormBuilder $form, $group, $id)
     {
+        if (!$this->groups->findBySlug($group)) {
+            abort(404);
+        }
+        
         return $form->render($id);
     }
 
