@@ -29,7 +29,7 @@ class CleanTemplates extends Command
     /**
      * Fire the command.
      */
-    public function fire()
+    public function handle()
     {
         $this->dispatch(new CleanTemplatesCommand());
         $this->dispatch(new CleanGroupsCommand());

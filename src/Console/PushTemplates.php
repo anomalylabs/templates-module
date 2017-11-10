@@ -28,7 +28,7 @@ class PushTemplates extends Command
     /**
      * Fire the command.
      */
-    public function fire()
+    public function handle()
     {
         $this->dispatch(new CheckDirectory());
         $this->dispatch(new PushTemplatesCommand());
