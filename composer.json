@@ -1,6 +1,33 @@
 {
     "name": "anomaly/templates-module",
     "type": "streams-addon",
+    "description": "Manage custom views and assets from your control panel.",
+    "keywords": [
+        "templates",
+        "pyrocms module"
+    ],
+    "homepage": "http://pyrocms.com/",
+    "license": "https://pyrocms.com/pro/license",
+    "authors": [
+        {
+            "name": "PyroCMS, Inc.",
+            "email": "support@pyrocms.com",
+            "homepage": "http://pyrocms.com/",
+            "role": "Owner"
+        },
+        {
+            "name": "Ryan Thompson",
+            "email": "ryan@pyrocms.com",
+            "homepage": "http://ryanthepyro.com/",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "support@pyrocms.com"
+    },
+    "require": {
+        "anomaly/streams-platform": "^1.3"
+    },
     "autoload": {
         "psr-4": {
             "Anomaly\\TemplatesModule\\": "src/"
