@@ -21,6 +21,7 @@ class AnomalyModuleTemplatesCreateGroupsStream extends Migration
         'slug'         => 'groups',
         'title_column' => 'name',
         'sortable'     => true,
+        'trashable'    => true,
     ];
 
     /**

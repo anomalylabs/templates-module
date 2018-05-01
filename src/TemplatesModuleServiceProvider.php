@@ -6,12 +6,14 @@ use Anomaly\Streams\Platform\Asset\AssetPaths;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesGroupsEntryModel;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesRoutesEntryModel;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesTemplatesEntryModel;
+use Anomaly\Streams\Platform\Version\VersionRouter;
 use Anomaly\TemplatesModule\Console\CleanTemplates;
 use Anomaly\TemplatesModule\Console\PushTemplates;
 use Anomaly\TemplatesModule\Console\SyncTemplates;
 use Anomaly\TemplatesModule\Group\Contract\GroupRepositoryInterface;
 use Anomaly\TemplatesModule\Group\GroupModel;
 use Anomaly\TemplatesModule\Group\GroupRepository;
+use Anomaly\TemplatesModule\Http\Controller\Admin\VersionsController;
 use Anomaly\TemplatesModule\Route\Contract\RouteInterface;
 use Anomaly\TemplatesModule\Route\Contract\RouteRepositoryInterface;
 use Anomaly\TemplatesModule\Route\RouteModel;
@@ -20,6 +22,7 @@ use Anomaly\TemplatesModule\Template\Contract\TemplateRepositoryInterface;
 use Anomaly\TemplatesModule\Template\TemplateModel;
 use Anomaly\TemplatesModule\Template\TemplateRepository;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 
 /**
@@ -93,13 +96,14 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
         'admin/templates/{group}/create'    => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@create',
         'admin/templates/{group}/choose'    => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@choose',
         'admin/templates/{group}/edit/{id}' => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@edit',
+        'admin/templates/{group}/view/{id}' => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@view',
     ];
 
     /**
      * Register the addon.
      *
-     * @param Factory     $views
-     * @param AssetPaths  $assets
+     * @param Factory $views
+     * @param AssetPaths $assets
      * @param Application $application
      */
     public function register(Factory $views, AssetPaths $assets, Application $application)
@@ -111,14 +115,19 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     /**
      * Map template routes.
      *
-     * @param Router                   $router
+     * @param Router $router
+     * @param Request $request
      * @param RouteRepositoryInterface $routes
+     * @param VersionRouter $versions
      */
-    public function map(Router $router, RouteRepositoryInterface $routes)
+    public function map(Router $router, RouteRepositoryInterface $routes, VersionRouter $versions)
     {
+
+        $versions->route($this->addon, VersionsController::class, 'admin/templates/{group}');
+
         /* @var RouteInterface $route */
         foreach ($routes->all() as $route) {
-            
+
             $router->any(
                 $route->getUri(),
                 [

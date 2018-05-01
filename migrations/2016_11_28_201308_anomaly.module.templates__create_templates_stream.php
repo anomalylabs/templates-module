@@ -20,6 +20,7 @@ class AnomalyModuleTemplatesCreateTemplatesStream extends Migration
     protected $stream = [
         'slug'         => 'templates',
         'title_column' => 'name',
+        'trashable'    => true,
     ];
 
     /**

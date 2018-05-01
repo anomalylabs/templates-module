@@ -4,6 +4,8 @@ use Anomaly\Streams\Platform\Console\Kernel;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
 use Anomaly\TemplatesModule\Group\Contract\GroupInterface;
 use Anomaly\TemplatesModule\Group\Contract\GroupRepositoryInterface;
+use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
+use Anomaly\TemplatesModule\Template\Contract\TemplateRepositoryInterface;
 use Anomaly\TemplatesModule\Template\Form\TemplateFormBuilder;
 use Anomaly\TemplatesModule\Template\Table\TemplateTableBuilder;
 use Illuminate\Contracts\Config\Repository;
@@ -109,8 +111,31 @@ class TemplatesController extends AdminController
         if (!$this->groups->findBySlug($group)) {
             abort(404);
         }
-        
+
         return $form->render($id);
+    }
+
+    /**
+     * View an existing entry.
+     *
+     * @param TemplateRepositoryInterface $templates
+     * @param $group
+     * @param $id
+     * @return \Illuminate\Contracts\View\View|mixed
+     */
+    public function view(TemplateRepositoryInterface $templates, $group, $id)
+    {
+        /* @var TemplateInterface $template */
+        if (!$template = $templates->find($id)) {
+            abort(404);
+        }
+
+        return $this->view->make(
+            'anomaly.module.templates::templates/view',
+            [
+                'entry' => $template,
+            ]
+        );
     }
 
     /**

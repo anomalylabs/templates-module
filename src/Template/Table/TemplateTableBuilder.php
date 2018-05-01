@@ -66,6 +66,9 @@ class TemplateTableBuilder extends TableBuilder
      */
     protected $buttons = [
         'edit',
+        'view' => [
+            'target' => '_blank',
+        ],
     ];
 
     /**

@@ -38,7 +38,7 @@ class TemplatesModule extends Module
         'templates' => [
             'data-toggle' => 'modal',
             'data-target' => '#modal',
-            'data-href'   => 'admin/templates/{request.route.parameters.group}',
+            'permalink'   => 'admin/templates/{request.route.parameters.group}',
             'href'        => 'admin/templates/choose',
 
             'buttons' => [

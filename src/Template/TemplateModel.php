@@ -17,6 +17,13 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
 {
 
     /**
+     * Templates are versionable.
+     *
+     * @var bool
+     */
+    protected $versionable = true;
+
+    /**
      * Return the file path.
      *
      * @return string

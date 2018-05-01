@@ -1,0 +1,16 @@
+{% if entry.extension == 'twig' %}
+    {% include entry.location %}
+{% elseif entry.extension == 'md' %}
+    {{ entry.content|raw }}
+{% elseif entry.extension == 'html' %}
+    {{ entry.content|raw }}
+{% elseif entry.extension in ['css', 'scss', 'less'] %}
+    <style type="text/css">
+        {{ asset_inline(entry.location)|raw }}
+    </style>
+{% elseif entry.extension in ['js', 'coffee'] %}
+    <script type="text/javascript">
+        {{ asset_inline(entry.location)|raw }}
+    </script>
+{% endif %}
+

@@ -40,6 +40,20 @@ class TemplateFormBuilder extends FormBuilder
     ];
 
     /**
+     * The form buttons.
+     *
+     * @var array
+     */
+    protected $buttons = [
+        'versions',
+        'cancel',
+        'view' => [
+            'enabled' => 'edit',
+            'target'  => '_blank',
+        ],
+    ];
+
+    /**
      * Fire just before posting.
      *
      * @param TemplateFormBuilder $builder
