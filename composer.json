@@ -28,6 +28,9 @@
     "require": {
         "anomaly/streams-platform": "^1.4"
     },
+    "suggests": {
+        "anomaly/template_block-extension": "Allows selecting and including a template in blocks content."
+    },
     "autoload": {
         "psr-4": {
             "Anomaly\\TemplatesModule\\": "src/"
