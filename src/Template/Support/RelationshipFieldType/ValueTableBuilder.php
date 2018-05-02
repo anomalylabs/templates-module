@@ -47,4 +47,12 @@ class ValueTableBuilder extends \Anomaly\RelationshipFieldType\Table\ValueTableB
         ],
         'description',
     ];
+
+    /**
+     * The table buttons.
+     *
+     * @var array
+     */
+    protected $buttons = ValueTableButtons::class;
+
 }
