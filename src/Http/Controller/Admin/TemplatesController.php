@@ -119,9 +119,9 @@ class TemplatesController extends AdminController
      * View an existing entry.
      *
      * @param TemplateRepositoryInterface $templates
-     * @param $group
-     * @param $id
-     * @return \Illuminate\Contracts\View\View|mixed
+     * @param                             $group
+     * @param                             $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function view(TemplateRepositoryInterface $templates, $group, $id)
     {
@@ -130,12 +130,7 @@ class TemplatesController extends AdminController
             abort(404);
         }
 
-        return $this->view->make(
-            'anomaly.module.templates::templates/view',
-            [
-                'entry' => $template,
-            ]
-        );
+        return $this->redirect->to($template->route('view'));
     }
 
     /**

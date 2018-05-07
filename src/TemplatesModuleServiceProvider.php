@@ -83,6 +83,10 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
+        'templates/{group}/view/{id}'       => [
+            'as'   => 'anomaly.module.templates::templates.view',
+            'uses' => 'Anomaly\TemplatesModule\Http\Controller\TemplatesController@view',
+        ],
         'admin/templates'                   => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@index',
         'admin/templates/choose'            => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@choose',
         'admin/templates/create'            => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@create',
@@ -102,8 +106,8 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     /**
      * Register the addon.
      *
-     * @param Factory $views
-     * @param AssetPaths $assets
+     * @param Factory     $views
+     * @param AssetPaths  $assets
      * @param Application $application
      */
     public function register(Factory $views, AssetPaths $assets, Application $application)
@@ -115,10 +119,10 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     /**
      * Map template routes.
      *
-     * @param Router $router
-     * @param Request $request
+     * @param Router                   $router
+     * @param Request                  $request
      * @param RouteRepositoryInterface $routes
-     * @param VersionRouter $versions
+     * @param VersionRouter            $versions
      */
     public function map(Router $router, RouteRepositoryInterface $routes, VersionRouter $versions)
     {

@@ -1,10 +1,8 @@
 <?php namespace Anomaly\TemplatesModule\Http\Controller;
 
-use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Http\Controller\PublicController;
 use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
 use Anomaly\TemplatesModule\Template\Contract\TemplateRepositoryInterface;
-use Illuminate\Contracts\View\Factory;
 
 /**
  * Class TemplatesController
@@ -17,24 +15,26 @@ class TemplatesController extends PublicController
 {
 
     /**
-     * Return the template.
+     * View an existing entry.
      *
-     * @param Factory                     $views
-     * @param Application                 $application
      * @param TemplateRepositoryInterface $templates
-     * @return \Illuminate\Contracts\View\View|string
+     * @param                             $group
+     * @param                             $id
+     * @return \Illuminate\Contracts\View\View|mixed
      */
-    public function view(Factory $views, Application $application, TemplateRepositoryInterface $templates)
+    public function view(TemplateRepositoryInterface $templates, $group, $id)
     {
         /* @var TemplateInterface $template */
-        if (!$template = $templates->find(array_get($this->route->getAction(), 'template'))) {
+        if (!$template = $templates->find($id)) {
             abort(404);
         }
 
-        if (!in_array($template->extension(), ['twig', 'html', 'md'])) {
-            return file_get_contents($application->getStoragePath('templates/' . $template->path()));
-        }
-
-        return $views->make($template->location());
+        return $this->view->make(
+            'anomaly.module.templates::templates/view',
+            [
+                'entry' => $template,
+            ]
+        );
     }
+
 }

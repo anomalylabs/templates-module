@@ -121,4 +121,19 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
     {
         return $this->content;
     }
+
+    /**
+     * Return the routable array.
+     *
+     * @return array
+     */
+    public function toRoutableArray()
+    {
+        $array = parent::toRoutableArray();
+
+        $array['group'] = $this->getGroup()->getSlug();
+
+        return $array;
+    }
+
 }
