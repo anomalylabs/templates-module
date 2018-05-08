@@ -38,4 +38,9 @@ return [
         'name'         => 'Template',
         'instructions' => 'Specify the template to load for this route.',
     ],
+    'override'    => [
+        'name'         => 'Override',
+        'placeholder'  => 'anomaly.module.posts::posts.view',
+        'instructions' => 'Specify the view this template should override if any.',
+    ],
 ];

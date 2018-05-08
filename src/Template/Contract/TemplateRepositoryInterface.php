@@ -1,6 +1,7 @@
 <?php namespace Anomaly\TemplatesModule\Template\Contract;
 
 use Anomaly\Streams\Platform\Entry\Contract\EntryRepositoryInterface;
+use Anomaly\TemplatesModule\Template\TemplateCollection;
 
 /**
  * Interface TemplateRepositoryInterface
@@ -19,4 +20,12 @@ interface TemplateRepositoryInterface extends EntryRepositoryInterface
      * @return TemplateInterface|null
      */
     public function findByPath($path);
+
+    /**
+     * Return all overriding templates.
+     *
+     * @return TemplateCollection
+     */
+    public function overrides();
+
 }

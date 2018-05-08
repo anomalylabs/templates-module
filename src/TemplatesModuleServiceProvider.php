@@ -18,6 +18,7 @@ use Anomaly\TemplatesModule\Route\Contract\RouteInterface;
 use Anomaly\TemplatesModule\Route\Contract\RouteRepositoryInterface;
 use Anomaly\TemplatesModule\Route\RouteModel;
 use Anomaly\TemplatesModule\Route\RouteRepository;
+use Anomaly\TemplatesModule\Template\Command\RegisterOverrides;
 use Anomaly\TemplatesModule\Template\Contract\TemplateRepositoryInterface;
 use Anomaly\TemplatesModule\Template\TemplateModel;
 use Anomaly\TemplatesModule\Template\TemplateRepository;
@@ -106,8 +107,8 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     /**
      * Register the addon.
      *
-     * @param Factory     $views
-     * @param AssetPaths  $assets
+     * @param Factory $views
+     * @param AssetPaths $assets
      * @param Application $application
      */
     public function register(Factory $views, AssetPaths $assets, Application $application)
@@ -119,13 +120,14 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     /**
      * Map template routes.
      *
-     * @param Router                   $router
-     * @param Request                  $request
+     * @param Router $router
+     * @param Request $request
      * @param RouteRepositoryInterface $routes
-     * @param VersionRouter            $versions
+     * @param VersionRouter $versions
      */
     public function map(Router $router, RouteRepositoryInterface $routes, VersionRouter $versions)
     {
+        $this->dispatch(new RegisterOverrides());
 
         $versions->route($this->addon, VersionsController::class, 'admin/templates/{group}');
 

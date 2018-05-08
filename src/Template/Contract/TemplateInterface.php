@@ -75,4 +75,12 @@ interface TemplateInterface extends EntryInterface
      * @return string
      */
     public function getContent();
+
+    /**
+     * Get the override.
+     *
+     * @return string
+     */
+    public function getOverride();
+
 }

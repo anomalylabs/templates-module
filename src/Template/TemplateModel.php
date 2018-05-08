@@ -123,6 +123,16 @@ class TemplateModel extends TemplatesTemplatesEntryModel implements TemplateInte
     }
 
     /**
+     * Get the override.
+     *
+     * @return string
+     */
+    public function getOverride()
+    {
+        return $this->override;
+    }
+
+    /**
      * Return the routable array.
      *
      * @return array

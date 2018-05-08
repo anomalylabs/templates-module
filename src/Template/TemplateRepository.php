@@ -41,4 +41,15 @@ class TemplateRepository extends EntryRepository implements TemplateRepositoryIn
     {
         return $this->model->where('path', $path)->first();
     }
+
+    /**
+     * Return all overriding templates.
+     *
+     * @return TemplateCollection
+     */
+    public function overrides()
+    {
+        return $this->model->whereNotNull('override')->get();
+    }
+
 }
