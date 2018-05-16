@@ -23,7 +23,7 @@ class PushTemplates
     {
         /* @var TemplateInterface|EloquentModel $template */
         foreach ($templates->all() as $template) {
-            $template->getContent();
+            $template->save();// @todo need something better
         }
     }
 }
