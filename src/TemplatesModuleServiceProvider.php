@@ -3,6 +3,7 @@
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Asset\AssetPaths;
+use Anomaly\Streams\Platform\Event\Ready;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesGroupsEntryModel;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesRoutesEntryModel;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesTemplatesEntryModel;
@@ -18,8 +19,9 @@ use Anomaly\TemplatesModule\Route\Contract\RouteInterface;
 use Anomaly\TemplatesModule\Route\Contract\RouteRepositoryInterface;
 use Anomaly\TemplatesModule\Route\RouteModel;
 use Anomaly\TemplatesModule\Route\RouteRepository;
-use Anomaly\TemplatesModule\Template\Command\RegisterOverrides;
 use Anomaly\TemplatesModule\Template\Contract\TemplateRepositoryInterface;
+use Anomaly\TemplatesModule\Template\Listener\AddTemplateOptions;
+use Anomaly\TemplatesModule\Template\Listener\RegisterOverrides;
 use Anomaly\TemplatesModule\Template\TemplateModel;
 use Anomaly\TemplatesModule\Template\TemplateRepository;
 use Illuminate\Contracts\View\Factory;
@@ -79,6 +81,20 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     ];
 
     /**
+     * The addon listeners.
+     *
+     * @var array
+     */
+    protected $listeners = [
+        Ready::class                                     => [
+            RegisterOverrides::class,
+        ],
+        'Anomaly\SelectFieldType\Event\SetLayoutOptions' => [
+            AddTemplateOptions::class,
+        ],
+    ];
+
+    /**
      * The addon routes.
      *
      * @var array
@@ -107,8 +123,8 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     /**
      * Register the addon.
      *
-     * @param Factory $views
-     * @param AssetPaths $assets
+     * @param Factory     $views
+     * @param AssetPaths  $assets
      * @param Application $application
      */
     public function register(Factory $views, AssetPaths $assets, Application $application)
@@ -120,15 +136,13 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     /**
      * Map template routes.
      *
-     * @param Router $router
-     * @param Request $request
+     * @param Router                   $router
+     * @param Request                  $request
      * @param RouteRepositoryInterface $routes
-     * @param VersionRouter $versions
+     * @param VersionRouter            $versions
      */
     public function map(Router $router, RouteRepositoryInterface $routes, VersionRouter $versions)
     {
-        $this->dispatch(new RegisterOverrides());
-
         $versions->route($this->addon, VersionsController::class, 'admin/templates/{group}');
 
         /* @var RouteInterface $route */
