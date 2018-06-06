@@ -1,58 +1,41 @@
 <?php namespace Anomaly\TemplatesModule\Template\Support\RelationshipFieldType;
 
+use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
+
 /**
- * Class ValueTableBuilder
+ * Class ValueTableButtons
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class ValueTableBuilder extends \Anomaly\RelationshipFieldType\Table\ValueTableBuilder
+class ValueTableButtons
 {
 
     /**
-     * The table filters.
+     * Handle the buttons.
      *
-     * @var array
+     * @param ValueTableBuilder $builder
      */
-    protected $filters = [
-        'search' => [
-            'fields' => [
-                'name',
-                'slug',
-            ],
-        ],
-        'type',
-    ];
+    public function handle(ValueTableBuilder $builder)
+    {
+        $builder->setButtons(
+            [
+                'edit'   => [
+                    'target'     => '_blank',
+                    'permission' => 'anomaly.module.templates::templates.write',
+                    'href'       => function (TemplateInterface $entry) {
 
-    /**
-     * The table columns.
-     *
-     * @var array
-     */
-    protected $columns = [
-        'name' => [
-            'sort_column' => 'name',
-            'wrapper'     => '
-                    <strong>{value.name}</strong>
-                    <br>
-                    <small class="text-muted">{value.location}</small>
-                    <br>
-                    {value.type}',
-            'value'       => [
-                'name'     => 'entry.name',
-                'location' => 'entry.location()',
-                'type'     => 'entry.label(entry.type|upper)',
-            ],
-        ],
-        'description',
-    ];
+                        $group = $entry->getGroup();
 
-    /**
-     * The table buttons.
-     *
-     * @var array
-     */
-    protected $buttons = ValueTableButtons::class;
-
+                        return "/admin/templates/{$group->getSlug()}/edit/{$entry->getId()}";
+                    },
+                ],
+                'remove' => [
+                    'data-dismiss' => 'relationship',
+                    'data-entry'   => 'entry.id',
+                ],
+            ]
+        );
+    }
 }
