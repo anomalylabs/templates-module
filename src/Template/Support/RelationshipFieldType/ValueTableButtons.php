@@ -24,8 +24,9 @@ class ValueTableButtons
                 'edit'   => [
                     'target'     => '_blank',
                     'permission' => 'anomaly.module.templates::templates.write',
-                    'href'       => function (TemplateInterface $entry) {
+                    'href'       => function ($entry) {
 
+                        /* @var TemplateInterface $entry */
                         $group = $entry->getGroup();
 
                         return "/admin/templates/{$group->getSlug()}/edit/{$entry->getId()}";
