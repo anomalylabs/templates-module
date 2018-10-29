@@ -1,6 +1,7 @@
 <?php namespace Anomaly\TemplatesModule\Template\Listener;
 
 use Anomaly\SelectFieldType\Event\SetLayoutOptions;
+use Anomaly\TemplatesModule\Group\Contract\GroupRepositoryInterface;
 use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
 use Anomaly\TemplatesModule\Template\Contract\TemplateRepositoryInterface;
 
@@ -15,6 +16,13 @@ class AddTemplateOptions
 {
 
     /**
+     * The group repository.
+     *
+     * @var GroupRepositoryInterface
+     */
+    protected $groups;
+
+    /**
      * The template repository.
      *
      * @var TemplateRepositoryInterface $templates
@@ -24,10 +32,12 @@ class AddTemplateOptions
     /**
      * Create a new AddTemplateOptions instance.
      *
+     * @param GroupRepositoryInterface $groups
      * @param TemplateRepositoryInterface $templates
      */
-    public function __construct(TemplateRepositoryInterface $templates)
+    public function __construct(GroupRepositoryInterface $groups, TemplateRepositoryInterface $templates)
     {
+        $this->groups    = $groups;
         $this->templates = $templates;
     }
 
@@ -40,7 +50,11 @@ class AddTemplateOptions
     {
         $fieldType = $event->getFieldType();
 
-        $views = $this->templates->findAllBy('type', 'twig');
+        if (!$group = $this->groups->findBySlug('layouts')) {
+            return;
+        }
+
+        $views = $group->getTemplates();
 
         $views = $views->map(
             function (TemplateInterface $template) {
