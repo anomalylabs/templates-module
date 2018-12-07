@@ -2,6 +2,7 @@
 
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Anomaly\Streams\Platform\Entry\EntryObserver;
+use Anomaly\TemplatesModule\Template\Command\PushTemplate;
 use Anomaly\TemplatesModule\Template\Command\SetPath;
 use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
 
@@ -27,5 +28,17 @@ class TemplateObserver extends EntryObserver
         }
 
         parent::creating($entry);
+    }
+
+    /**
+     * Fired just after saving an entry.
+     *
+     * @param EntryInterface|TemplateInterface $entry
+     */
+    public function saved(EntryInterface $entry)
+    {
+        $this->dispatch(new PushTemplate($entry));
+
+        parent::created($entry);
     }
 }
