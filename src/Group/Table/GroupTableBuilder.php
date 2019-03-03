@@ -47,7 +47,7 @@ class GroupTableBuilder extends TableBuilder
         'templates' => [
             'type' => 'primary',
             'icon' => 'fa fa-object-ungroup',
-            'href' => 'admin/templates/{entry.slug}',
+            'href' => 'admin/templates?filter_group={entry.id}',
         ],
     ];
 

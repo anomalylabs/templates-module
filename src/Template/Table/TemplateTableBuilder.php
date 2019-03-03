@@ -1,8 +1,6 @@
 <?php namespace Anomaly\TemplatesModule\Template\Table;
 
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
-use Anomaly\TemplatesModule\Group\Contract\GroupInterface;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class TemplateTableBuilder
@@ -15,13 +13,6 @@ class TemplateTableBuilder extends TableBuilder
 {
 
     /**
-     * The group interface.
-     *
-     * @var null|GroupInterface
-     */
-    protected $group = null;
-
-    /**
      * The table filters.
      *
      * @var array
@@ -31,8 +22,10 @@ class TemplateTableBuilder extends TableBuilder
             'fields' => [
                 'name',
                 'slug',
+                'description',
             ],
         ],
+        'group',
         'type',
     ];
 
@@ -80,38 +73,4 @@ class TemplateTableBuilder extends TableBuilder
         'delete',
     ];
 
-    /**
-     * Fired just before querying.
-     *
-     * @param Builder $query
-     */
-    public function onQuerying(Builder $query)
-    {
-        if ($group = $this->getGroup()) {
-            $query->where('group_id', $group->getId());
-        }
-    }
-
-    /**
-     * Get the group.
-     *
-     * @return GroupInterface|null
-     */
-    public function getGroup()
-    {
-        return $this->group;
-    }
-
-    /**
-     * Set the group.
-     *
-     * @param GroupInterface $group
-     * @return $this
-     */
-    public function setGroup(GroupInterface $group)
-    {
-        $this->group = $group;
-
-        return $this;
-    }
 }

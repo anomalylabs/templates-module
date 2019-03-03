@@ -1,7 +1,5 @@
 <?php namespace Anomaly\TemplatesModule\Template\Command;
 
-use Illuminate\Contracts\Config\Repository;
-
 /**
  * Class GetExtension
  *
@@ -32,12 +30,11 @@ class GetExtension
     /**
      * Handle the command.
      *
-     * @param Repository $config
      * @return null|string
      */
-    public function handle(Repository $config)
+    public function handle()
     {
-        foreach ($config->get('anomaly.module.templates::templates.types') as $extension => $type) {
+        foreach (config('anomaly.module.templates::templates.types') as $extension => $type) {
             if ($type == $this->type) {
                 return $extension;
             }

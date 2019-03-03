@@ -2,13 +2,10 @@
 
 use Anomaly\Streams\Platform\Console\Kernel;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Anomaly\TemplatesModule\Group\Contract\GroupInterface;
-use Anomaly\TemplatesModule\Group\Contract\GroupRepositoryInterface;
 use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
 use Anomaly\TemplatesModule\Template\Contract\TemplateRepositoryInterface;
 use Anomaly\TemplatesModule\Template\Form\TemplateFormBuilder;
 use Anomaly\TemplatesModule\Template\Table\TemplateTableBuilder;
-use Illuminate\Contracts\Config\Repository;
 
 /**
  * Class TemplatesController
@@ -21,52 +18,24 @@ class TemplatesController extends AdminController
 {
 
     /**
-     * The group repository.
-     *
-     * @var GroupRepositoryInterface
-     */
-    protected $groups;
-
-    /**
-     * Create a new TemplatesController instance.
-     *
-     * @param GroupRepositoryInterface $groups
-     */
-    public function __construct(GroupRepositoryInterface $groups)
-    {
-        $this->groups = $groups;
-
-        parent::__construct();
-    }
-
-    /**
      * Display an index of existing entries.
      *
      * @param TemplateTableBuilder $table
-     * @param                      $group
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(TemplateTableBuilder $table, $group)
+    public function index(TemplateTableBuilder $table)
     {
-        /* @var GroupInterface $group */
-        if (!$group = $this->groups->findBySlug($group)) {
-            return $this->redirect->to('admin/templates');
-        }
-
-        return $table
-            ->setGroup($group)
-            ->render();
+        return $table->render();
     }
 
     /**
      * Choose a group to view templates for.
      *
-     * @param Repository $config
      * @return \Illuminate\Contracts\View\View|mixed
      */
-    public function choose(Repository $config)
+    public function choose()
     {
-        $types = $config->get('anomaly.module.templates::templates.types');
+        $types = config('anomaly.module.templates::templates.types');
 
         return $this->view->make(
             'anomaly.module.templates::admin/templates/choose',
@@ -80,20 +49,14 @@ class TemplatesController extends AdminController
      * Create a new entry.
      *
      * @param TemplateFormBuilder $form
-     * @param                     $group
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(TemplateFormBuilder $form, $group)
+    public function create(TemplateFormBuilder $form)
     {
-        /* @var GroupInterface $group */
-        if (!$group = $this->groups->findBySlug($group)) {
-            return $this->redirect->to('admin/templates');
-        }
 
         $type = $this->request->get('type');
 
         return $form
-            ->setGroup($group)
             ->setType($type)
             ->render();
     }
@@ -102,16 +65,11 @@ class TemplatesController extends AdminController
      * Edit an existing entry.
      *
      * @param TemplateFormBuilder $form
-     * @param                     $group
-     * @param                     $id
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(TemplateFormBuilder $form, $group, $id)
+    public function edit(TemplateFormBuilder $form, $id)
     {
-        if (!$this->groups->findBySlug($group)) {
-            abort(404);
-        }
-
         return $form->render($id);
     }
 
@@ -119,11 +77,10 @@ class TemplatesController extends AdminController
      * View an existing entry.
      *
      * @param TemplateRepositoryInterface $templates
-     * @param                             $group
-     * @param                             $id
+     * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function view(TemplateRepositoryInterface $templates, $group, $id)
+    public function view(TemplateRepositoryInterface $templates, $id)
     {
         /* @var TemplateInterface $template */
         if (!$template = $templates->find($id)) {

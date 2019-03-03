@@ -1,5 +1,6 @@
 <?php namespace Anomaly\TemplatesModule;
 
+use Anomaly\SelectFieldType\Event\SetLayoutOptions;
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 use Anomaly\Streams\Platform\Application\Application;
 use Anomaly\Streams\Platform\Asset\AssetPaths;
@@ -18,7 +19,7 @@ use Anomaly\TemplatesModule\Http\Controller\Admin\VersionsController;
 use Anomaly\TemplatesModule\Route\Contract\RouteRepositoryInterface;
 use Anomaly\TemplatesModule\Route\RouteModel;
 use Anomaly\TemplatesModule\Route\RouteRepository;
-use Anomaly\TemplatesModule\Template\Command\DumpRoutes;
+use Anomaly\TemplatesModule\Console\DumpRoutes;
 use Anomaly\TemplatesModule\Template\Contract\TemplateRepositoryInterface;
 use Anomaly\TemplatesModule\Template\Listener\AddTemplateOptions;
 use Anomaly\TemplatesModule\Template\Listener\RegisterOverrides;
@@ -51,9 +52,24 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $commands = [
+        DumpRoutes::class,
         SyncTemplates::class,
         PushTemplates::class,
         CleanTemplates::class,
+    ];
+
+    /**
+     * The addon listeners.
+     *
+     * @var array
+     */
+    protected $listeners = [
+        Ready::class            => [
+            RegisterOverrides::class,
+        ],
+        SetLayoutOptions::class => [
+            AddTemplateOptions::class,
+        ],
     ];
 
     /**
@@ -79,43 +95,15 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     ];
 
     /**
-     * The addon listeners.
-     *
-     * @var array
-     */
-    protected $listeners = [
-        Ready::class                                     => [
-            RegisterOverrides::class,
-        ],
-        'Anomaly\SelectFieldType\Event\SetLayoutOptions' => [
-            AddTemplateOptions::class,
-        ],
-    ];
-
-    /**
      * The addon routes.
      *
      * @var array
      */
     protected $routes = [
-        'templates/{group}/view/{id}'       => [
+        'templates/view/{id}' => [
             'as'   => 'anomaly.module.templates::templates.view',
             'uses' => 'Anomaly\TemplatesModule\Http\Controller\TemplatesController@view',
         ],
-        'admin/templates'                   => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@index',
-        'admin/templates/choose'            => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@choose',
-        'admin/templates/create'            => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@create',
-        'admin/templates/edit/{id}'         => 'Anomaly\TemplatesModule\Http\Controller\Admin\GroupsController@edit',
-        'admin/templates/routes'            => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@index',
-        'admin/templates/routes/create'     => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@create',
-        'admin/templates/routes/edit/{id}'  => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@edit',
-        'admin/templates/routes/view/{id}'  => 'Anomaly\TemplatesModule\Http\Controller\Admin\RoutesController@view',
-        'admin/templates/sync'              => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@sync',
-        'admin/templates/{group}'           => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@index',
-        'admin/templates/{group}/create'    => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@create',
-        'admin/templates/{group}/choose'    => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@choose',
-        'admin/templates/{group}/edit/{id}' => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@edit',
-        'admin/templates/{group}/view/{id}' => 'Anomaly\TemplatesModule\Http\Controller\Admin\TemplatesController@view',
     ];
 
     /**

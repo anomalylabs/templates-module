@@ -25,29 +25,24 @@ class TemplatesModule extends Module
      * @var array
      */
     protected $sections = [
-        'groups'    => [
+        'templates' => [
             'buttons' => [
-                'new_group',
-                'sync' => [
+                'new_template' => [
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal',
+                    'href'        => 'admin/templates/choose',
+                ],
+                'sync'         => [
                     'type' => 'info',
                     'icon' => 'refresh',
                     'href' => 'admin/templates/sync',
                 ],
             ],
         ],
-        'templates' => [
-            'data-toggle' => 'modal',
-            'data-target' => '#modal',
-            'permalink'   => 'admin/templates/{request.route.parameters.group}',
-            'href'        => 'admin/templates/choose',
-
+        'groups'    => [
             'buttons' => [
-                'new_template' => [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal',
-                    'href'        => 'admin/templates/{request.route.parameters.group}/choose',
-                ],
-                'sync'         => [
+                'new_group',
+                'sync' => [
                     'type' => 'info',
                     'icon' => 'refresh',
                     'href' => 'admin/templates/sync',

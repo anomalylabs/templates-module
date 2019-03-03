@@ -1,5 +1,6 @@
-<?php namespace Anomaly\TemplatesModule\Template\Command;
+<?php namespace Anomaly\TemplatesModule\Route\Command;
 
+use Anomaly\Streams\Platform\Routing\Command\CacheRoutes;
 use Anomaly\TemplatesModule\Route\Contract\RouteInterface;
 use Anomaly\TemplatesModule\Route\Contract\RouteRepositoryInterface;
 
@@ -39,7 +40,9 @@ class DumpRoutes
                     }
                 )->all()
         );
-
+        dd($content);
         file_put_contents($file, "<?php\n\n" . $content);
+
+        dispatch_now(new CacheRoutes());
     }
 }

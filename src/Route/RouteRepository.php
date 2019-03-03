@@ -3,6 +3,13 @@
 use Anomaly\TemplatesModule\Route\Contract\RouteRepositoryInterface;
 use Anomaly\Streams\Platform\Entry\EntryRepository;
 
+/**
+ * Class RouteRepository
+ *
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
+ */
 class RouteRepository extends EntryRepository implements RouteRepositoryInterface
 {
 
