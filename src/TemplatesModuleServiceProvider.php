@@ -15,18 +15,16 @@ use Anomaly\TemplatesModule\Group\Contract\GroupRepositoryInterface;
 use Anomaly\TemplatesModule\Group\GroupModel;
 use Anomaly\TemplatesModule\Group\GroupRepository;
 use Anomaly\TemplatesModule\Http\Controller\Admin\VersionsController;
-use Anomaly\TemplatesModule\Route\Contract\RouteInterface;
 use Anomaly\TemplatesModule\Route\Contract\RouteRepositoryInterface;
 use Anomaly\TemplatesModule\Route\RouteModel;
 use Anomaly\TemplatesModule\Route\RouteRepository;
+use Anomaly\TemplatesModule\Template\Command\DumpRoutes;
 use Anomaly\TemplatesModule\Template\Contract\TemplateRepositoryInterface;
 use Anomaly\TemplatesModule\Template\Listener\AddTemplateOptions;
 use Anomaly\TemplatesModule\Template\Listener\RegisterOverrides;
 use Anomaly\TemplatesModule\Template\TemplateModel;
 use Anomaly\TemplatesModule\Template\TemplateRepository;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Router;
 
 /**
  * Class TemplatesModuleServiceProvider
@@ -123,8 +121,8 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     /**
      * Register the addon.
      *
-     * @param Factory     $views
-     * @param AssetPaths  $assets
+     * @param Factory $views
+     * @param AssetPaths $assets
      * @param Application $application
      */
     public function register(Factory $views, AssetPaths $assets, Application $application)
@@ -136,25 +134,16 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
     /**
      * Map template routes.
      *
-     * @param Router                   $router
-     * @param Request                  $request
-     * @param RouteRepositoryInterface $routes
-     * @param VersionRouter            $versions
+     * @param VersionRouter $versions
      */
-    public function map(Router $router, RouteRepositoryInterface $routes, VersionRouter $versions)
+    public function map(VersionRouter $versions)
     {
         $versions->route($this->addon, VersionsController::class, 'admin/templates/{group}');
 
-        /* @var RouteInterface $route */
-        foreach ($routes->all() as $route) {
-
-            $router->any(
-                $route->getUri(),
-                [
-                    'template' => $route->getTemplateId(),
-                    'uses'     => 'Anomaly\TemplatesModule\Http\Controller\TemplatesController@view',
-                ]
-            );
+        if (!file_exists($routes = app_storage_path('templates/routes.php'))) {
+            dispatch_now(new DumpRoutes());
         }
+
+        require $routes;
     }
 }
