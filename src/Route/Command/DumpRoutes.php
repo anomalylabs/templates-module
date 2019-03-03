@@ -35,12 +35,12 @@ class DumpRoutes
                     function (RouteInterface $route) {
                         return "Route::any('{$route->getUri()}', [
     'uses'     => 'Anomaly\\TemplatesModule\\Http\\Controller\\TemplatesController@view',
-    'template' => {$route->getTemplate()},
+    'template' => {$route->getTemplateId()},
 ]);";
                     }
                 )->all()
         );
-        dd($content);
+
         file_put_contents($file, "<?php\n\n" . $content);
 
         dispatch_now(new CacheRoutes());

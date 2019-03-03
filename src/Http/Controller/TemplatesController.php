@@ -21,10 +21,10 @@ class TemplatesController extends PublicController
      * @param $id
      * @return \Illuminate\Contracts\View\View|mixed
      */
-    public function view(TemplateRepositoryInterface $templates, $id)
+    public function view(TemplateRepositoryInterface $templates)
     {
         /* @var TemplateInterface $template */
-        if (!$template = $templates->find($id)) {
+        if (!$template = $templates->find(request()->route()->getAction('template'))) {
             abort(404);
         }
 
