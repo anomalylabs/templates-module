@@ -34,7 +34,7 @@ class DumpRoutes
                     function (RouteInterface $route) {
                         return "Route::any('{$route->getUri()}', [
     'uses'     => 'Anomaly\\TemplatesModule\\Http\\Controller\\TemplatesController@view',
-    'template' => {$route->getTemplate()},
+    'template' => {$route->getTemplateId()},
 ]);";
                     }
                 )->all()
