@@ -18,24 +18,30 @@ class TemplateFormFields
      */
     public function handle(TemplateFormBuilder $builder)
     {
-        $type  = $builder->getType();
-        $group = $builder->getGroupId();
-        $id    = $builder->getFormEntryId();
+        $type = $builder->getType();
+        $id   = $builder->getFormEntryId();
 
         $builder->setFields(
             [
-                '*',
+                'name',
                 'slug'    => [
                     'rules' => [
-                        'unique:templates_templates,slug,' . $id . ',id,group_id,' . $group . ',type,' . $type,
+                        'unique:templates_templates,slug,' . $id . ',id,group_id,' . $builder->getPostValue(
+                            'group'
+                        ) . ',type,' . $type,
                     ],
                 ],
+                'group'   => [
+                    'disabled' => 'edit',
+                ],
+                'description',
                 'content' => [
                     'config' => [
                         'mode' => $type,
                     ],
                 ],
-                'override'
+                'override',
+                '*',
             ]
         );
     }

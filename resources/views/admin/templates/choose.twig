@@ -13,7 +13,7 @@
         <ul class="nav nav-pills nav-stacked">
             {% for extension, type in types %}
                 <li class="nav-item">
-                    <a href="{{ url_to('admin/templates/' ~ route_parameter('group') ~ '/create?type=' ~ type) }}"
+                    <a href="{{ url_to('admin/templates/create?type=' ~ type) }}"
                        class="nav-link">
                         <strong>{{ extension|upper }}</strong>
                     </a>

@@ -36,7 +36,6 @@ class TemplateFormBuilder extends FormBuilder
     protected $skips = [
         'path',
         'type',
-        'group',
     ];
 
     /**
@@ -66,10 +65,6 @@ class TemplateFormBuilder extends FormBuilder
         if ($type = $this->getType()) {
             $entry->setAttribute('type', $type);
         }
-
-        if ($group = $this->getGroup()) {
-            $entry->setAttribute('group', $group);
-        }
     }
 
     /**
@@ -93,46 +88,6 @@ class TemplateFormBuilder extends FormBuilder
     public function setType($type)
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get the group.
-     *
-     * @return GroupInterface|null
-     */
-    public function getGroup()
-    {
-        return $this->group;
-    }
-
-    /**
-     * Get the contextual group ID.
-     *
-     * @return int
-     */
-    public function getGroupId()
-    {
-        if ($group = $this->getGroup()) {
-            return $group->getId();
-        }
-
-        /* @var TemplateInterface $entry */
-        $entry = $this->getFormEntry();
-
-        return $entry->getGroupId();
-    }
-
-    /**
-     * Set the group.
-     *
-     * @param GroupInterface $group
-     * @return $this
-     */
-    public function setGroup(GroupInterface $group)
-    {
-        $this->group = $group;
 
         return $this;
     }
