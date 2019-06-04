@@ -18,13 +18,13 @@ class TemplatesController extends PublicController
      * View an existing entry.
      *
      * @param TemplateRepositoryInterface $templates
-     * @param $id
+     * @param $path
      * @return \Illuminate\Contracts\View\View|mixed
      */
-    public function view(TemplateRepositoryInterface $templates)
+    public function view(TemplateRepositoryInterface $templates, $path)
     {
         /* @var TemplateInterface $template */
-        if (!$template = $templates->find(request()->route()->getAction('template'))) {
+        if (!$template = $templates->findBy('path', $path)) {
             abort(404);
         }
 

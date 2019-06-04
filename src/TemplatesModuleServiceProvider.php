@@ -10,6 +10,7 @@ use Anomaly\Streams\Platform\Model\Templates\TemplatesRoutesEntryModel;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesTemplatesEntryModel;
 use Anomaly\Streams\Platform\Version\VersionRouter;
 use Anomaly\TemplatesModule\Console\CleanTemplates;
+use Anomaly\TemplatesModule\Console\DumpRoutes;
 use Anomaly\TemplatesModule\Console\PushTemplates;
 use Anomaly\TemplatesModule\Console\SyncTemplates;
 use Anomaly\TemplatesModule\Group\Contract\GroupRepositoryInterface;
@@ -19,7 +20,6 @@ use Anomaly\TemplatesModule\Http\Controller\Admin\VersionsController;
 use Anomaly\TemplatesModule\Route\Contract\RouteRepositoryInterface;
 use Anomaly\TemplatesModule\Route\RouteModel;
 use Anomaly\TemplatesModule\Route\RouteRepository;
-use Anomaly\TemplatesModule\Console\DumpRoutes;
 use Anomaly\TemplatesModule\Template\Contract\TemplateRepositoryInterface;
 use Anomaly\TemplatesModule\Template\Listener\AddTemplateOptions;
 use Anomaly\TemplatesModule\Template\Listener\RegisterOverrides;
@@ -100,9 +100,12 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $routes = [
-        'templates/view/{id}' => [
-            'as'   => 'anomaly.module.templates::templates.view',
-            'uses' => 'Anomaly\TemplatesModule\Http\Controller\TemplatesController@view',
+        'templates/view/{path}' => [
+            'as'    => 'anomaly.module.templates::templates.view',
+            'uses'  => 'Anomaly\TemplatesModule\Http\Controller\TemplatesController@view',
+            'where' => [
+                'path' => '(.*)',
+            ],
         ],
     ];
 
