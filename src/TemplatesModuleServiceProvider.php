@@ -3,6 +3,7 @@
 use Anomaly\SelectFieldType\Event\SetLayoutOptions;
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 use Anomaly\Streams\Platform\Application\Application;
+use Anomaly\Streams\Platform\Application\Event\SystemIsRefreshing;
 use Anomaly\Streams\Platform\Asset\AssetPaths;
 use Anomaly\Streams\Platform\Event\Ready;
 use Anomaly\Streams\Platform\Model\Templates\TemplatesGroupsEntryModel;
@@ -17,6 +18,7 @@ use Anomaly\TemplatesModule\Group\Contract\GroupRepositoryInterface;
 use Anomaly\TemplatesModule\Group\GroupModel;
 use Anomaly\TemplatesModule\Group\GroupRepository;
 use Anomaly\TemplatesModule\Http\Controller\Admin\VersionsController;
+use Anomaly\TemplatesModule\Listener\RefreshTemplatesModule;
 use Anomaly\TemplatesModule\Route\Contract\RouteRepositoryInterface;
 use Anomaly\TemplatesModule\Route\RouteModel;
 use Anomaly\TemplatesModule\Route\RouteRepository;
@@ -64,11 +66,14 @@ class TemplatesModuleServiceProvider extends AddonServiceProvider
      * @var array
      */
     protected $listeners = [
-        Ready::class            => [
+        Ready::class              => [
             RegisterOverrides::class,
         ],
-        SetLayoutOptions::class => [
+        SetLayoutOptions::class   => [
             AddTemplateOptions::class,
+        ],
+        SystemIsRefreshing::class => [
+            RefreshTemplatesModule::class,
         ],
     ];
 
