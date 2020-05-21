@@ -62,7 +62,7 @@ class RegisterOverrides
 
         /* @var TemplateInterface $template */
         foreach ($this->templates->overrides() as $template) {
-            $this->overrides->force(
+            $this->overrides->put(
                 str_replace(
                     'theme::',
                     $active->getNamespace() . '::',
