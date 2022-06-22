@@ -1,8 +1,8 @@
 <?php namespace Anomaly\TemplatesModule\Http\Controller;
 
+use Illuminate\Support\Facades\Request;
 use Anomaly\Streams\Platform\Http\Controller\PublicController;
-use Anomaly\TemplatesModule\Template\Contract\TemplateInterface;
-use Anomaly\TemplatesModule\Template\Contract\TemplateRepositoryInterface;
+use Anomaly\TemplatesModule\Route\Contract\RouteRepositoryInterface;
 
 /**
  * Class TemplatesController
@@ -17,21 +17,20 @@ class TemplatesController extends PublicController
     /**
      * View an existing entry.
      *
-     * @param TemplateRepositoryInterface $templates
-     * @param $path
+     * @param RouteRepositoryInterface $routes
      * @return \Illuminate\Contracts\View\View|mixed
      */
-    public function view(TemplateRepositoryInterface $templates, $path)
+    public function view(RouteRepositoryInterface $routes)
     {
         /* @var TemplateInterface $template */
-        if (!$template = $templates->findBy('path', $path)) {
+        if (!$route = $routes->findBy('uri', Request::path())) {
             abort(404);
         }
 
         return $this->view->make(
             'anomaly.module.templates::templates/view',
             [
-                'entry' => $template,
+                'entry' => $route->template,
             ]
         );
     }
